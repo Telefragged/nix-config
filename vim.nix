@@ -1,4 +1,4 @@
-{ pkgs ? import <nixpkgs> {}}:
+{ pkgs ? import <nixpkgs> {} }:
 with pkgs;
 let
     fsac-archive = fetchurl {
@@ -22,11 +22,11 @@ let
         };
     };
 
-    ddc-vim-lsp = fetchFromGitHub {
-      owner = "shun";
-      repo = "ddc-vim-lsp";
-      rev = "f7e348afd0d72e8b29b5cadd16768a6f4b329517";
-      sha256 = "1jq9cj67hp9cydv2s3c8f38chcir42j5c2yk50sw81ya1zcvkbqs";
+    ddc-nvim-lsp = fetchFromGitHub {
+      owner = "Shougo";
+      repo = "ddc-nvim-lsp";
+      rev = "626a9e36b4fb98b311f879234c1a5006a5f9794a";
+      sha256 = "f8wZApcB8ybcwKYlrdl3oHHzoSw7u8N0ru4LDPcrffg=";
     };
 
     ddc-around = fetchurl {
@@ -47,11 +47,10 @@ let
     ddc-vim = pkgs.vimUtils.buildVimPlugin {
         name = "ddc-vim";
         nativeBuildInputs = [ vim-vint deno ];
-        dontBuild = true;
         postInstall = ''
-            mkdir -p $out/denops/@ddc-sources $out/denops/@ddc-filters
-            cp -r ${ddc-vim-lsp}/denops/* $out/denops
-            cp ${ddc-vim-lsp}/autoload/* $out/autoload
+            mkdir -p $out/denops/@ddc-sources $out/denops/@ddc-filters $out/lua
+            cp -r ${ddc-nvim-lsp}/denops/* $out/denops
+            cp -r ${ddc-nvim-lsp}/lua/* $out/lua
             cp ${ddc-around} $out/denops/@ddc-sources/around.ts
             cp ${ddc-matcher_head} $out/denops/@ddc-filters/matcher_head.ts
             cp ${ddc-sorter_rank} $out/denops/@ddc-filters/sorter_rank.ts
@@ -67,23 +66,11 @@ let
     deno-vim = pkgs.vimUtils.buildVimPlugin {
         name = "deno-vim";
         nativeBuildInputs = [ perl ];
-        dontBuild = true;
         src = pkgs.fetchFromGitHub {
             owner = "vim-denops";
             repo = "denops.vim";
             rev = "228d446132825bd8035a5530a206611f639f9a74";
             sha256 = "00szxrclnrq0wsdpwip6557yzizcc88f2c3kndpas2zzxjaix2bq";
-        };
-    };
-
-    vim-lsp-settings = pkgs.vimUtils.buildVimPlugin {
-        name = "vim-lsp-settings";
-        nativeBuildInputs = [ shellcheck ];
-        src = pkgs.fetchFromGitHub {
-            owner = "mattn";
-            repo = "vim-lsp-settings";
-            rev = "7372894af0248da1353df39db31b0b8dbac72c2a";
-            sha256 = "10phpgd65jb869ry2p7rybn103x8y36jjkffdrzmcvvadnqfj3sm";
         };
     };
 
@@ -97,67 +84,71 @@ let
             sha256 = "1gi4281bzzhbjqbs5r8248bssvxmw9cvyxfynd55wyiijlk200s4";
         };
     };
-in vim_configurable.customize {
-    name = "vim";
-    vimrcConfig.plug.plugins = with pkgs.vimPlugins; [
-        vim-nix
-        vim-sensible
-        vim-airline
-        vim-airline-themes
+in neovim.override {
+    configure = {
+        packages.myVimPackage = with pkgs.vimPlugins; {
+            start = [
+              vim-nix
+              vim-sensible
+              vim-airline
+              vim-airline-themes
 
-        vim-deus
-        vim-deep-space
+              vim-deus
 
-        vim-lsp
-        vim-lsp-settings
+              nvim-lspconfig
+              deno-vim
+              ddc-vim
 
-        deno-vim
-        ddc-vim
+              ionide-vim
 
-        nerdtree
+              nerdtree
 
-        ionide-vim
-    ];
-    vimrcConfig.customRC = ''
-        set rnu
-        set encoding=utf-8
-        set tabstop=4
+              git-blame-nvim
+          ];
+        };
+        customRC = ''
+            set rnu
+            set encoding=utf-8
+            set expandtab
+            set tabstop=4
+            set shiftwidth=4
 
-        nnoremap <S-Up> :m-2<CR>
-        nnoremap <S-Down> :m+<CR>
-        inoremap <S-Up> <Esc>:m-2<CR>
-        inoremap <S-Down> <Esc>:m+<CR>
+            nnoremap <S-Up> :m-2<CR>
+            nnoremap <S-Down> :m+<CR>
+            inoremap <S-Up> <Esc>:m-2<CR>
+            inoremap <S-Down> <Esc>:m+<CR>
 
-        autocmd BufWritePre * :%s/\s\+$//e
+            autocmd BufWritePre * :%s/\s\+$//e
 
-        set background=dark
-        colors deus
+            set background=dark
+            colors deus
 
-        if executable('rnix-lsp')
-            au User lsp_setup call lsp#register_server({
-                \ 'name': 'rnix-lsp',
-                \ 'cmd': {server_info->[&shell, &shellcmdflag, 'rnix-lsp']},
-                \ 'whitelist': ['nix'],
+            if executable('rnix-lsp')
+                au User lsp_setup call lsp#register_server({
+                    \ 'name': 'rnix-lsp',
+                    \ 'cmd': {server_info->[&shell, &shellcmdflag, 'rnix-lsp']},
+                    \ 'whitelist': ['nix'],
+                    \ })
+            endif
+
+            call ddc#custom#patch_global('sources', ['nvim-lsp', 'around'])
+
+            call ddc#custom#patch_global('sourceOptions', {
+                \ '_': {
+                \   'matchers': ['matcher_head'],
+                \   'sorters': ['sorter_rank']},
                 \ })
-        endif
 
-        call ddc#custom#patch_global('sources', ['vim-lsp', 'around'])
+            " <TAB>: completion.
+            inoremap <silent><expr> <TAB>
+            \ pumvisible() ? '<C-n>' :
+            \ (col('.') <= 1 <Bar><Bar> getline('.')[col('.') - 2] =~# '\s') ?
+            \ '<TAB>' : ddc#map#manual_complete()
 
-        call ddc#custom#patch_global('sourceOptions', {
-            \ '_': {
-            \   'matchers': ['matcher_head'],
-            \   'sorters': ['sorter_rank']},
-            \ })
+            " <S-TAB>: completion back.
+            inoremap <expr><S-TAB>  pumvisible() ? '<C-p>' : '<C-h>'
 
-        " <TAB>: completion.
-        inoremap <silent><expr> <TAB>
-        \ pumvisible() ? '<C-n>' :
-        \ (col('.') <= 1 <Bar><Bar> getline('.')[col('.') - 2] =~# '\s') ?
-        \ '<TAB>' : ddc#map#manual_complete()
-
-        " <S-TAB>: completion back.
-        inoremap <expr><S-TAB>  pumvisible() ? '<C-p>' : '<C-h>'
-
-        call ddc#enable()
-        '';
+            call ddc#enable()
+            '';
+        };
 }
