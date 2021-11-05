@@ -36,6 +36,4 @@ inoremap <expr><S-TAB>  pumvisible() ? '<C-p>' : '<C-h>'
 
 call ddc#enable()
 
-lua << EOF
-require'lspconfig'.rnix.setup{}
-EOF
+lua require'lspconfig'.rnix.setup{}
