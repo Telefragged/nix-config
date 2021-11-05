@@ -1,8 +1,8 @@
 let
+  moz_overlay = import (builtins.fetchTarball https://github.com/mozilla/nixpkgs-mozilla/archive/master.tar.gz);
   nixpkgs = import <nixpkgs> { overlays = [ moz_overlay ]; };
   dotnetsdks = import ./dotnet.nix { pkgs = nixpkgs; };
   vim = import ./vim.nix { pkgs = nixpkgs; };
-  moz_overlay = import (builtins.fetchTarball https://github.com/mozilla/nixpkgs-mozilla/archive/master.tar.gz);
 in with nixpkgs; {
   allowUnfree = true;
   packageOverrides = pkgs: with pkgs; {
