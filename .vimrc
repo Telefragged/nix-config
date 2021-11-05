@@ -9,8 +9,9 @@ nnoremap <S-Down> :m+<CR>
 inoremap <S-Up> <Esc>:m-2<CR>
 inoremap <S-Down> <Esc>:m+<CR>
 
-nnoremap <A-t> :NERDTree<CR>
-nnoremap <A-r> :NERDTreeClose<CR>
+nnoremap <A-z> :NERDTreeToggle<CR>
+
+nnoremap <F2> :lua vim.lsp.buf.rename()<CR>
 
 autocmd BufWritePre * :%s/\s\+$//e
 
