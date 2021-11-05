@@ -15,10 +15,10 @@ let
             make fsautocomplete
         '';
         src = pkgs.fetchFromGitHub {
-            owner = "ionide";
+            owner = "Telefragged";
             repo = "ionide-vim";
-            rev = "0b688cccdb80598e09cd24cd3537145f8633e051";
-            sha256 = "134c61fnsx4va4f4vrb1xfscaybph22347fd61xk7jjyyr9v6a7w";
+            rev = "efe622a8133b1acbbed7b72c761ea4d663abe555";
+            sha256 = "TbqWPJ1CKRVIBQQiLT7aYnbI08nOEPFM0tF/tVFeIpc=";
         };
     };
 
