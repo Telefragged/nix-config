@@ -100,6 +100,8 @@ in neovim.override {
               vim-airline-themes
 
               vim-deus
+              vim-deep-space
+              gruvbox
 
               nvim-lspconfig
               deno-vim

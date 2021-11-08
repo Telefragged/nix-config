@@ -26,7 +26,7 @@ nnoremap <silent> <M-Right> <C-i>
 autocmd BufWritePre * :%s/\s\+$//e
 
 set background=dark
-colors deus
+colors gruvbox
 
 call ddc#custom#patch_global('sources', ['nvim-lsp', 'around'])
 
