@@ -96,7 +96,6 @@ in neovim.override {
         packages.myVimPackage = with pkgs.vimPlugins; {
             start = [
               vim-nix
-              vim-sensible
               vim-airline
               vim-airline-themes
 

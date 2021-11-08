@@ -1,8 +1,11 @@
 set rnu
 set encoding=utf-8
-set expandtab
-set tabstop=4
-set shiftwidth=4
+set expandtab shiftwidth=4
+set termguicolors
+set clipboard=unnamed
+set list listchars=trail:·
+
+set mouse=a
 
 nnoremap <S-Up> :m-2<CR>
 nnoremap <S-Down> :m+<CR>
