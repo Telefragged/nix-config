@@ -114,6 +114,8 @@ in neovim.override {
               nvim-web-devicons
 
               vim-fugitive
+
+              which-key-nvim
           ];
         };
         customRC = builtins.readFile ./.vimrc;
