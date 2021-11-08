@@ -12,9 +12,16 @@ nnoremap <S-Down> :m+<CR>
 inoremap <S-Up> <Esc>:m-2<CR>
 inoremap <S-Down> <Esc>:m+<CR>
 
-nnoremap <A-z> :NERDTreeToggle<CR>
+nnoremap <silent> <A-z> :NERDTreeToggle<CR>
 
 nnoremap <F2> :lua vim.lsp.buf.rename()<CR>
+inoremap <F2> <Esc>:lua vim.lsp.buf.rename()<CR>
+
+nnoremap <silent> <F12> :lua vim.lsp.buf.definition()<CR>
+nnoremap <silent> <S-w> :bd<CR>
+
+nnoremap <silent> <M-Left> <C-o>
+nnoremap <silent> <M-Right> <C-i>
 
 autocmd BufWritePre * :%s/\s\+$//e
 
