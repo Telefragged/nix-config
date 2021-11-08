@@ -109,7 +109,7 @@ in neovim.override {
 
               nerdtree
 
-              git-blame-nvim
+              vim-fugitive
           ];
         };
         customRC = builtins.readFile ./.vimrc;
