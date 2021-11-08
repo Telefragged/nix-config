@@ -25,6 +25,8 @@ nnoremap <silent> <M-Right> <C-i>
 
 autocmd BufWritePre * :%s/\s\+$//e
 
+let g:airline#extensions#tabline#enabled = 0
+
 set background=dark
 colors gruvbox
 
@@ -46,6 +48,10 @@ inoremap <silent><expr> <TAB>
 " <S-TAB>: completion back.
 inoremap <expr><S-TAB>  pumvisible() ? '<C-p>' : '<C-h>'
 
+nnoremap <silent> <char-62> :BufferLineCycleNext<CR>
+nnoremap <silent> <char-60> :BufferLineCyclePrev<CR>
+
 call ddc#enable()
 
 lua require'lspconfig'.rnix.setup{}
+lua require("bufferline").setup{}

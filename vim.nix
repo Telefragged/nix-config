@@ -110,6 +110,8 @@ in neovim.override {
               ionide-vim
 
               nerdtree
+              bufferline-nvim
+              nvim-web-devicons
 
               vim-fugitive
           ];
