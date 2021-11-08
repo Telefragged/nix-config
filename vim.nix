@@ -29,6 +29,13 @@ let
       sha256 = "f8wZApcB8ybcwKYlrdl3oHHzoSw7u8N0ru4LDPcrffg=";
     };
 
+    ddc-fuzzy = fetchFromGitHub {
+      owner = "tani";
+      repo = "ddc-fuzzy";
+      rev = "36df7f829559b0e1c9f72062a3f778faeefad867";
+      sha256 = "3r5sImKebXAk6IzBo2kAjewho4yHeX7ElUyxYWtQ7bA=";
+    };
+
     ddc-around = fetchurl {
         url = https://raw.githubusercontent.com/Shougo/ddc-around/f551408180c28da552ee5fe745e030f51907bca5/denops/%40ddc-sources/around.ts;
         sha256 = "0j5d9cn41b4z97nq2k4bycz0jinfj0waznkqpghj76rrjvg6ki6r";
@@ -51,9 +58,9 @@ let
             mkdir -p $out/denops/@ddc-sources $out/denops/@ddc-filters $out/lua
             cp -r ${ddc-nvim-lsp}/denops/* $out/denops
             cp -r ${ddc-nvim-lsp}/lua/* $out/lua
+            cp -r ${ddc-fuzzy}/denops/* $out/denops
+            cp -r ${ddc-fuzzy}/fuzzy.ts $out/fuzzy.ts
             cp ${ddc-around} $out/denops/@ddc-sources/around.ts
-            cp ${ddc-matcher_head} $out/denops/@ddc-filters/matcher_head.ts
-            cp ${ddc-sorter_rank} $out/denops/@ddc-filters/sorter_rank.ts
         '';
         src = pkgs.fetchFromGitHub {
             owner = "Shougo";
