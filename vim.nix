@@ -116,6 +116,8 @@ in neovim.override {
               vim-fugitive
 
               which-key-nvim
+
+              ctrlp-vim
           ];
         };
         customRC = builtins.readFile ./.vimrc;
