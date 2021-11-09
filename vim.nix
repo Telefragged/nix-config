@@ -120,6 +120,6 @@ in neovim.override {
               ctrlp-vim
           ];
         };
-        customRC = builtins.readFile ./.vimrc;
+        customRC = builtins.readFile ./customRC.vim;
     };
 }
