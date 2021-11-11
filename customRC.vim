@@ -55,6 +55,7 @@ nnoremap <silent> <char-62> :BufferLineCycleNext<CR>
 nnoremap <silent> <char-60> :BufferLineCyclePrev<CR>
 
 call ddc#enable()
+call ddc_nvim_lsp_doc#enable()
 
 lua require'lspconfig'.rnix.setup{}
 lua require("bufferline").setup{}

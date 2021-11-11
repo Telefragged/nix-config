@@ -29,6 +29,13 @@ let
       sha256 = "f8wZApcB8ybcwKYlrdl3oHHzoSw7u8N0ru4LDPcrffg=";
     };
 
+    ddc-nvim-lsp-doc = fetchFromGitHub {
+       owner = "matsui54";
+       repo = "ddc-nvim-lsp-doc";
+      rev = "6129ed6d2cc48ab2d7a4d265b032231644d741b0";
+      sha256 = "SwHCSnobzA66ORlad2toVbZ9SZXnouAhHmN+Z6clp2E=";
+    };
+
     ddc-fuzzy = fetchFromGitHub {
       owner = "tani";
       repo = "ddc-fuzzy";
@@ -51,15 +58,19 @@ let
         sha256 = "0qswfyck264yix6v410z936c20ffa3cz26r7s5s8pf07dz48marx";
     };
 
+
     ddc-vim = pkgs.vimUtils.buildVimPlugin {
         name = "ddc-vim";
         nativeBuildInputs = [ vim-vint deno ];
         postInstall = ''
-            mkdir -p $out/denops/@ddc-sources $out/denops/@ddc-filters $out/lua
+            mkdir -p $out/denops/@ddc-sources $out/denops/@ddc-filters $out/lua $out/autoload
             cp -r ${ddc-nvim-lsp}/denops/* $out/denops
             cp -r ${ddc-nvim-lsp}/lua/* $out/lua
+            cp -r ${ddc-nvim-lsp-doc}/denops/* $out/denops
+            cp -r ${ddc-nvim-lsp-doc}/lua/* $out/lua
+            cp -r ${ddc-nvim-lsp-doc}/autoload/* $out/autoload
             cp -r ${ddc-fuzzy}/denops/* $out/denops
-            cp -r ${ddc-fuzzy}/fuzzy.ts $out/fuzzy.ts
+            cp ${ddc-fuzzy}/fuzzy.ts $out/fuzzy.ts
             cp ${ddc-around} $out/denops/@ddc-sources/around.ts
         '';
         src = pkgs.fetchFromGitHub {
