@@ -33,7 +33,7 @@ let g:airline#extensions#tabline#enabled = 0
 set background=dark
 colors gruvbox
 
-call ddc#custom#patch_global('sources', ['nvim-lsp', 'around'])
+call ddc#custom#patch_global('sources', ['nvim-lsp'])
 
 call ddc#custom#patch_global('sourceOptions', {
     \ '_': {
