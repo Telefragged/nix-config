@@ -7,6 +7,9 @@ set list listchars=trail:·
 
 set mouse=a
 
+set nocindent nosmartindent noautoindent
+filetype indent off
+
 nnoremap <S-Up> :m-2<CR>
 nnoremap <S-Down> :m+<CR>
 inoremap <S-Up> <Esc>:m-2<CR>
