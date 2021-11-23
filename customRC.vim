@@ -31,7 +31,7 @@ autocmd BufWritePre * :%s/\s\+$//e
 let g:airline#extensions#tabline#enabled = 0
 
 set background=dark
-colors gruvbox
+colors serenade
 
 call ddc#custom#patch_global('sources', ['nvim-lsp'])
 

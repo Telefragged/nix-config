@@ -2,8 +2,8 @@
 with pkgs;
 let
     fsac-archive = fetchurl {
-        url = https://github.com/fsharp/FsAutoComplete/releases/latest/download/fsautocomplete.netcore.zip;
-        sha256 = "1lb3m1yxh2kjbzqs9pixc6jp334wnq2yh3wg3i7d3zixa664dr6m";
+        url = https://github.com/fsharp/FsAutoComplete/releases/download/0.49.4/fsautocomplete.netcore.zip;
+        sha256 = "09kwja0dybwin3cszmcl9jdp867bmvgjlyjxlibwh0fwij0183hi";
     };
     ionide-vim = pkgs.vimUtils.buildVimPlugin {
         name = "ionide-vim";
@@ -15,10 +15,10 @@ let
             make fsautocomplete
         '';
         src = pkgs.fetchFromGitHub {
-            owner = "Telefragged";
+            owner = "ionide";
             repo = "ionide-vim";
-            rev = "efe622a8133b1acbbed7b72c761ea4d663abe555";
-            sha256 = "TbqWPJ1CKRVIBQQiLT7aYnbI08nOEPFM0tF/tVFeIpc=";
+            rev = "04237438da036d6102d998e19932b747f56583ce";
+            sha256 = "1b9gfll3nfd6mbbi5yx999kla7r2bsn6lk5q5f5dcmc1vf7j3dvn";
         };
     };
 
@@ -61,7 +61,8 @@ let
 
     ddc-vim = pkgs.vimUtils.buildVimPlugin {
         name = "ddc-vim";
-        nativeBuildInputs = [ vim-vint deno ];
+        nativeBuildInputs = [ ];
+        dontBuild = true;
         postInstall = ''
             mkdir -p $out/denops/@ddc-sources $out/denops/@ddc-filters $out/lua $out/autoload
             cp -r ${ddc-nvim-lsp}/denops/* $out/denops
@@ -102,6 +103,29 @@ let
             sha256 = "1gi4281bzzhbjqbs5r8248bssvxmw9cvyxfynd55wyiijlk200s4";
         };
     };
+
+    serenade = pkgs.vimUtils.buildVimPlugin {
+        name = "serenade";
+        nativeBuildInputs = [ ];
+        src = pkgs.fetchFromGitHub {
+            owner = "b4skyx";
+            repo = "serenade";
+            rev = "3a27c50059ec0d81554473c6cbc267b233f2d131";
+            sha256 = "0p12v6gy7j21l2nxx7931mq43gv5hyqii1wbpr9i4biabmc4qr84";
+        };
+    };
+
+    vim-transparent = pkgs.vimUtils.buildVimPlugin {
+        name = "vim-transparent";
+        nativeBuildInputs = [ ];
+        src = pkgs.fetchFromGitHub {
+            owner = "tribela";
+            repo = "vim-transparent";
+            rev = "e2f16c1e3341773518b68799264c6cfd7ac8bd7a";
+            sha256 = "0kzbjp233hj88ri8qjmyakjv753p8lnzsh9yhvh36fgdcwdq53kb";
+        };
+    };
+
 in neovim.override {
     configure = {
         packages.myVimPackage = with pkgs.vimPlugins; {
@@ -112,7 +136,9 @@ in neovim.override {
 
               vim-deus
               vim-deep-space
+              serenade
               gruvbox
+              vim-transparent
 
               nvim-lspconfig
               deno-vim
