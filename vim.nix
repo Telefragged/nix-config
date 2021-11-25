@@ -143,6 +143,7 @@ in neovim.override {
               semshi
 
               nvim-lspconfig
+              lsp_signature-nvim
 
               cmp-nvim-lsp
               cmp-path

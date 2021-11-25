@@ -36,6 +36,8 @@ colors serenade
 nnoremap <silent> <char-62> :BufferLineCycleNext<CR>
 nnoremap <silent> <char-60> :BufferLineCyclePrev<CR>
 
+lua require'lsp_signature'.setup()
+
 lua require'lspconfig'.rnix.setup{}
 lua require'lspconfig'.pyright.setup{}
 lua require("bufferline").setup{}
