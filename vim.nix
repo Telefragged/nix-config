@@ -155,6 +155,7 @@ in neovim.override {
               nerdtree
               bufferline-nvim
               nvim-web-devicons
+              vim-devicons
 
               vim-fugitive
 
