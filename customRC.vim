@@ -58,4 +58,5 @@ call ddc#enable()
 call ddc_nvim_lsp_doc#enable()
 
 lua require'lspconfig'.rnix.setup{}
+lua require'lspconfig'.pyright.setup{}
 lua require("bufferline").setup{}

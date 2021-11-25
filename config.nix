@@ -1,6 +1,5 @@
 let
-  moz_overlay = import (builtins.fetchTarball https://github.com/mozilla/nixpkgs-mozilla/archive/master.tar.gz);
-  nixpkgs = import <nixpkgs> { overlays = [ moz_overlay ]; };
+  nixpkgs = import <nixpkgs> {};
   dotnetsdks = import ./dotnet.nix { pkgs = nixpkgs; };
   vim = import ./vim.nix { pkgs = nixpkgs; };
 in with nixpkgs; {
@@ -9,11 +8,11 @@ in with nixpkgs; {
     myPackages = pkgs.buildEnv {
       name = "my-packages";
       paths = [ dotnetsdks
-                latest.rustChannels.nightly.rust
                 lsd
                 deno
                 rnix-lsp
-                vim ];
+                vim
+                nodePackages.pyright ];
     };
   };
 }
