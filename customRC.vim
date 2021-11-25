@@ -33,30 +33,52 @@ let g:airline#extensions#tabline#enabled = 0
 set background=dark
 colors serenade
 
-call ddc#custom#patch_global('sources', ['nvim-lsp'])
-
-call ddc#custom#patch_global('sourceOptions', {
-    \ '_': {
-    \   'matchers': ['matcher_fuzzy'],
-    \   'sorters': ['sorter_fuzzy'],
-    \   'converters': ['converter_fuzzy']},
-    \ })
-
-" <TAB>: completion.
-inoremap <silent><expr> <TAB>
-\ pumvisible() ? '<C-n>' :
-\ (col('.') <= 1 <Bar><Bar> getline('.')[col('.') - 2] =~# '\s') ?
-\ '<TAB>' : ddc#map#manual_complete()
-
-" <S-TAB>: completion back.
-inoremap <expr><S-TAB>  pumvisible() ? '<C-p>' : '<C-h>'
-
 nnoremap <silent> <char-62> :BufferLineCycleNext<CR>
 nnoremap <silent> <char-60> :BufferLineCyclePrev<CR>
-
-call ddc#enable()
-call ddc_nvim_lsp_doc#enable()
 
 lua require'lspconfig'.rnix.setup{}
 lua require'lspconfig'.pyright.setup{}
 lua require("bufferline").setup{}
+
+set completeopt=menu,menuone,noselect
+
+lua <<EOF
+  local cmp = require'cmp'
+
+  cmp.setup({
+    snippet = {
+      expand = function(args)
+        vim.fn["vsnip#anonymous"](args.body)
+      end,
+    },
+    mapping = {
+      ['<Tab>'] = cmp.mapping.select_next_item({ behavior = cmp.SelectBehavior.Select }),
+      ['<S-Tab>'] = cmp.mapping.select_prev_item({ behavior = cmp.SelectBehavior.Select }),
+      ['<C-b>'] = cmp.mapping(cmp.mapping.scroll_docs(-4), { 'i', 'c' }),
+      ['<C-f>'] = cmp.mapping(cmp.mapping.scroll_docs(4), { 'i', 'c' }),
+      ['<C-Space>'] = cmp.mapping(cmp.mapping.complete(), { 'i', 'c' }),
+      ['<C-y>'] = cmp.config.disable, -- Specify `cmp.config.disable` if you want to remove the default `<C-y>` mapping.
+      ['<C-e>'] = cmp.mapping({
+        i = cmp.mapping.abort(),
+        c = cmp.mapping.close(),
+      }),
+      ['<CR>'] = cmp.mapping.confirm({ select = true }),
+    },
+    sources = cmp.config.sources({
+      { name = 'nvim_lsp' },
+      { name = 'vsnip' },
+      { name = 'path' }
+    })
+  })
+
+  local capabilities = require('cmp_nvim_lsp').update_capabilities(vim.lsp.protocol.make_client_capabilities())
+
+  local lspconfig = require('lspconfig')
+
+  lspconfig['pyright'].setup {
+    capabilities = capabilities
+  }
+  lspconfig['rnix'].setup {
+    capabilities = capabilities
+  }
+EOF

@@ -143,8 +143,12 @@ in neovim.override {
               semshi
 
               nvim-lspconfig
-              deno-vim
-              ddc-vim
+
+              cmp-nvim-lsp
+              cmp-path
+              nvim-cmp
+              cmp-vsnip
+              vim-vsnip
 
               ionide-vim
 
