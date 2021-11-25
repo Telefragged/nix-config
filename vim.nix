@@ -140,6 +140,8 @@ in neovim.override {
               gruvbox
               vim-transparent
 
+              semshi
+
               nvim-lspconfig
               deno-vim
               ddc-vim
