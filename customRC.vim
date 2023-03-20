@@ -1,4 +1,4 @@
-set rnu
+set nu rnu
 set encoding=utf-8
 set expandtab shiftwidth=4
 set termguicolors
@@ -35,16 +35,36 @@ colors serenade
 
 nnoremap <silent> <char-62> :BufferLineCycleNext<CR>
 nnoremap <silent> <char-60> :BufferLineCyclePrev<CR>
+nnoremap <silent> <C-j> <S-}>
+nnoremap <silent> <C-k> <S-{>
 
-lua require'lsp_signature'.setup()
+lua require("lsp_signature").setup{}
 
-lua require'lspconfig'.rnix.setup{}
-lua require'lspconfig'.pyright.setup{}
 lua require("bufferline").setup{}
+
+inoremap <S-Tab> <C-d>
 
 set completeopt=menu,menuone,noselect
 
 lua <<EOF
+  vim.g.mapleader = " "
+
+  require("telescope").setup{}
+  local t_builtin = require('telescope.builtin')
+  vim.keymap.set('n', '<leader>ff', t_builtin.find_files, {})
+  vim.keymap.set('n', '<leader>fg', t_builtin.live_grep, {})
+  vim.keymap.set('n', '<leader>fb', t_builtin.buffers, {})
+  vim.keymap.set('n', '<leader>fh', t_builtin.help_tags, {})
+
+  local has_words_before = function()
+    local line, col = unpack(vim.api.nvim_win_get_cursor(0))
+    return col ~= 0 and vim.api.nvim_buf_get_lines(0, line - 1, line, true)[1]:sub(col, col):match("%s") == nil
+  end
+
+  local feedkey = function(key, mode)
+    vim.api.nvim_feedkeys(vim.api.nvim_replace_termcodes(key, true, true, true), mode, true)
+  end
+
   local cmp = require'cmp'
 
   cmp.setup({
@@ -73,14 +93,11 @@ lua <<EOF
     })
   })
 
-  local capabilities = require('cmp_nvim_lsp').update_capabilities(vim.lsp.protocol.make_client_capabilities())
+  local capabilities = require('cmp_nvim_lsp').default_capabilities(vim.lsp.protocol.make_client_capabilities())
 
   local lspconfig = require('lspconfig')
 
-  lspconfig['pyright'].setup {
-    capabilities = capabilities
-  }
-  lspconfig['rnix'].setup {
-    capabilities = capabilities
-  }
+  lspconfig['pyright'].setup { capabilities = capabilities }
+  lspconfig['rnix'].setup { capabilities = capabilities }
+  lspconfig['vimls'].setup { capabilities = capabilities }
 EOF
