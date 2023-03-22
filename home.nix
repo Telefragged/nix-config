@@ -15,11 +15,15 @@
   # changes in each release.
   home.stateVersion = "22.05";
 
+  fonts.fontconfig.enable = true;
+
   # Let Home Manager install and manage itself.
   programs.home-manager.enable = true;
   programs.neovim = {
     defaultEditor = true;
     enable = true;
+    viAlias = true;
+    vimAlias = true;
     plugins = import ./vim.nix { inherit pkgs; };
     extraConfig = builtins.readFile ./customRC.vim;
     package = pkgs.neovim-unwrapped.overrideAttrs (p: {
@@ -36,7 +40,6 @@
     lsd
     deno
     rnix-lsp
-    vim
     nerdfonts
     nodePackages.vim-language-server
     nodePackages.pyright
