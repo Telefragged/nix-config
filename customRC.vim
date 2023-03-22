@@ -22,6 +22,7 @@ nnoremap <F2> :lua vim.lsp.buf.rename()<CR>
 inoremap <F2> <Esc>:lua vim.lsp.buf.rename()<CR>
 
 nnoremap <silent> <F12> :lua vim.lsp.buf.definition()<CR>
+nnoremap <silent> <S-F12> :lua vim.lsp.buf.references()<CR>
 nnoremap <silent> <S-w> :bd<CR>
 nnoremap <silent> <S-q> :q<CR>
 
@@ -37,8 +38,11 @@ colors zenburn
 
 nnoremap <silent> <char-62> :BufferLineCycleNext<CR>
 nnoremap <silent> <char-60> :BufferLineCyclePrev<CR>
+
 nnoremap <silent> <C-j> <C-d>zz
 nnoremap <silent> <C-k> <C-u>zz
+nnoremap <silent> <C-Down> <C-d>zz
+nnoremap <silent> <C-Up> <C-u>zz
 
 lua require("lsp_signature").setup{}
 
