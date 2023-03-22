@@ -33,7 +33,7 @@ autocmd BufWritePre * :%s/\s\+$//e
 let g:airline#extensions#tabline#enabled = 0
 
 set background=dark
-colors serenade
+colors zenburn
 
 nnoremap <silent> <char-62> :BufferLineCycleNext<CR>
 nnoremap <silent> <char-60> :BufferLineCyclePrev<CR>

@@ -153,6 +153,7 @@ with pkgs.vimPlugins; [
   vim-deep-space
   serenade
   gruvbox
+  zenburn
   vim-transparent
 
   semshi
