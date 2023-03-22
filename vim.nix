@@ -77,6 +77,10 @@ with pkgs.vimPlugins; [
 
   semshi
 
+  nvim-dap
+  nvim-dap-ui
+  nvim-dap-virtual-text
+
   nvim-lspconfig
   lsp_signature-nvim
 

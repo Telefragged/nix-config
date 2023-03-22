@@ -1,5 +1,11 @@
 { config, pkgs, ... }:
-{
+let
+
+  vscode-lldb = pkgs.vscode-extensions.vadimcn.vscode-lldb;
+
+  codelldb = "${vscode-lldb}/share/vscode/extensions/vadimcn.vscode-lldb/adapter/codelldb";
+  liblldb = "${vscode-lldb}/share/vscode/extensions/vadimcn.vscode-lldb/lldb/lib/liblldb.so";
+in {
   # Home Manager needs a bit of information about you and the
   # paths it should manage.
   home.username = "vetle";
@@ -26,7 +32,10 @@
     vimAlias = true;
     plugins = import ./vim.nix { inherit pkgs; };
     extraConfig = builtins.readFile ./customRC.vim;
-    extraLuaConfig = builtins.readFile ./init.lua;
+    extraLuaConfig = ''
+      local codelldb_path = "${codelldb}"
+      local liblldb_path = "${liblldb}"
+    '' + builtins.readFile ./init.lua;
     package = pkgs.neovim-unwrapped.overrideAttrs (p: {
       src = pkgs.fetchFromGitHub {
         owner = "neovim";
