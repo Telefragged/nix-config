@@ -102,4 +102,6 @@ lua <<EOF
   lspconfig['pyright'].setup { capabilities = capabilities }
   lspconfig['rnix'].setup { capabilities = capabilities }
   lspconfig['vimls'].setup { capabilities = capabilities }
+
+  require('lightspeed').setup{}
 EOF

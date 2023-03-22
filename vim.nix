@@ -5,6 +5,7 @@ let
     url = https://github.com/fsharp/FsAutoComplete/releases/download/0.49.5/fsautocomplete.netcore.zip;
     sha256 = "0pq5r654nqqj7hvs73dcc92810p1j6xj4wni43p8rlnyj8f9zpg3";
   };
+
   ionide-vim = pkgs.vimUtils.buildVimPlugin {
     name = "ionide-vim";
     nativeBuildInputs = [ which curl unzip ];
@@ -57,7 +58,6 @@ let
     url = https://raw.githubusercontent.com/Shougo/ddc-sorter_rank/5ac213151681bf1c1aee8e89974f8982550458eb/denops/%40ddc-filters/sorter_rank.ts;
     sha256 = "0qswfyck264yix6v410z936c20ffa3cz26r7s5s8pf07dz48marx";
   };
-
 
   ddc-vim = pkgs.vimUtils.buildVimPlugin {
     name = "ddc-vim";
@@ -180,6 +180,5 @@ with pkgs.vimPlugins; [
   vim-fugitive
 
   which-key-nvim
-
-  ctrlp-vim
+  lightspeed-nvim
 ]
