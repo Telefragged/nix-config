@@ -26,6 +26,7 @@
     vimAlias = true;
     plugins = import ./vim.nix { inherit pkgs; };
     extraConfig = builtins.readFile ./customRC.vim;
+    extraLuaConfig = builtins.readFile ./init.lua;
     package = pkgs.neovim-unwrapped.overrideAttrs (p: {
       src = pkgs.fetchFromGitHub {
         owner = "neovim";
@@ -66,6 +67,7 @@
     deno
     rust-analyzer
     rnix-lsp
+    lua-language-server
     nerdfonts
     nodePackages.vim-language-server
     nodePackages.pyright
