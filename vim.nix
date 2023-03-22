@@ -62,6 +62,17 @@ let
       tree-sitter-python
     ]);
 
+  zenburn-nvim = pkgs.vimUtils.buildVimPlugin {
+    name = "zenburn";
+    nativeBuildInputs = [ ];
+    src = pkgs.fetchFromGitHub {
+      owner = "phha";
+      repo = "zenburn.nvim";
+      rev = "cc78ddba1d65f885d3928692ee628ed40216b900";
+      sha256 = "sha256-NExSyE1ZArJuiEZz+HRwnj6MD672Qt0jbRrpxX0GNMA";
+    };
+  };
+
 in
 with pkgs.vimPlugins; [
   vim-nix
@@ -72,7 +83,7 @@ with pkgs.vimPlugins; [
   vim-deep-space
   serenade
   gruvbox
-  zenburn
+  zenburn-nvim
   vim-transparent
 
   semshi
