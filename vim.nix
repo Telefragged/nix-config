@@ -80,6 +80,8 @@ with pkgs.vimPlugins; [
   nvim-lspconfig
   lsp_signature-nvim
 
+  rust-tools-nvim
+
   nvim-cmp
   cmp-nvim-lsp
   cmp-path

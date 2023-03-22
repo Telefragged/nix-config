@@ -64,6 +64,7 @@
   home.packages = with pkgs; [
     lsd
     deno
+    rust-analyzer
     rnix-lsp
     nerdfonts
     nodePackages.vim-language-server
@@ -71,5 +72,7 @@
     git
     flameshot
     nodejs
+    ripgrep
+    fd
   ];
 }
