@@ -90,7 +90,8 @@ with pkgs.vimPlugins; [
 
   telescope-nvim
 
-  copilot-vim
+  copilot-lua
+  copilot-cmp
 
   nerdtree
   bufferline-nvim

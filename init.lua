@@ -1,5 +1,12 @@
 vim.g.mapleader = " "
 
+require('copilot').setup({
+  suggestion = { enabled = false },
+  panel = { enabled = false },
+})
+
+require("copilot_cmp").setup{}
+
 require("lsp_signature").setup{}
 
 require("bufferline").setup{}
@@ -37,7 +44,8 @@ cmp.setup({
   sources = cmp.config.sources({
     { name = 'nvim_lsp' },
     { name = 'vsnip' },
-    { name = 'path' }
+    { name = 'path' },
+    { name = 'copilot' },
   })
 })
 
