@@ -22,6 +22,7 @@ inoremap <F2> <Esc>:lua vim.lsp.buf.rename()<CR>
 
 nnoremap <silent> <F12> :lua vim.lsp.buf.definition()<CR>
 nnoremap <silent> <S-w> :bd<CR>
+nnoremap <silent> <S-q> :q<CR>
 
 nnoremap <silent> <M-Left> <C-o>
 nnoremap <silent> <M-Right> <C-i>
@@ -45,6 +46,7 @@ lua require("bufferline").setup{}
 inoremap <S-Tab> <C-d>
 
 set completeopt=menu,menuone,noselect
+set laststatus=3
 
 lua <<EOF
   vim.g.mapleader = " "
