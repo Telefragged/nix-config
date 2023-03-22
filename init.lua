@@ -1,3 +1,6 @@
+vim.keymap.set({'n', 'v', 'i'}, 'C-Up', '<C-u>zz', {silent = true})
+vim.keymap.set({'n', 'v', 'i'}, 'C-Down', '<C-d>zz', {silent = true})
+
 vim.g.mapleader = " "
 
 require('copilot').setup({

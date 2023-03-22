@@ -39,12 +39,6 @@ colors zenburn
 nnoremap <silent> <char-62> :BufferLineCycleNext<CR>
 nnoremap <silent> <char-60> :BufferLineCyclePrev<CR>
 
-nnoremap <silent> <C-j> <C-d>zz
-nnoremap <silent> <C-k> <C-u>zz
-nnoremap <silent> <C-Down> <C-d>zz
-nnoremap <silent> <C-Up> <C-u>zz
-
-
 inoremap <S-Tab> <C-d>
 
 set completeopt=menu,menuone,noselect
