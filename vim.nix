@@ -62,6 +62,7 @@ let
       tree-sitter-python
       tree-sitter-rust
       tree-sitter-json
+      tree-sitter-lua
     ]);
 
   zenburn-nvim = pkgs.vimUtils.buildVimPlugin {
