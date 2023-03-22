@@ -103,5 +103,7 @@ lua <<EOF
   lspconfig['rnix'].setup { capabilities = capabilities }
   lspconfig['vimls'].setup { capabilities = capabilities }
 
+  vim.cmd([[vnoremap <C-h> ""y:%s/<C-R>=escape(@", '/\')<CR>//g<Left><Left>]])
+
   require('lightspeed').setup{}
 EOF
