@@ -60,6 +60,8 @@ let
     with tree-sitter-grammars; [
       tree-sitter-nix
       tree-sitter-python
+      tree-sitter-rust
+      tree-sitter-json
     ]);
 
   zenburn-nvim = pkgs.vimUtils.buildVimPlugin {
@@ -85,6 +87,8 @@ with pkgs.vimPlugins; [
   gruvbox
   zenburn-nvim
   vim-transparent
+
+  nvim-treesitter
 
   semshi
 

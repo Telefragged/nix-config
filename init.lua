@@ -8,6 +8,14 @@ vim.keymap.set('n', '<leader>bf', vim.lsp.buf.format, { noremap = true, silent =
 
 vim.keymap.set('n', '<leader>g', ':Gedit :<CR>', { noremap = true, silent = true })
 
+require('nvim-treesitter.configs').setup {
+  highlight = {
+    enable = true,
+
+    additional_vim_regex_highlighting = false,
+  },
+}
+
 local dap = require('dap')
 vim.keymap.set('n', '<F9>', dap.toggle_breakpoint, { noremap = true, silent = true })
 vim.keymap.set('n', '<F5>', dap.continue, { noremap = true, silent = true })
