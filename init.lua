@@ -14,7 +14,13 @@ vim.keymap.set('n', '<F5>', dap.continue, { noremap = true, silent = true })
 vim.keymap.set('n', '<F10>', dap.step_over, { noremap = true, silent = true })
 vim.keymap.set('n', '<F11>', dap.step_into, { noremap = true, silent = true })
 
-require('nvim-dap-virtual-text').setup{}
+require('nvim-dap-virtual-text').setup {}
+
+local dapui = require('dapui')
+dapui.setup {}
+
+vim.keymap.set('n', '<leader>dd', dapui.toggle, { noremap = true, silent = true })
+
 
 require('copilot').setup({
     suggestion = { enabled = false },
