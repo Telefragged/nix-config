@@ -152,4 +152,4 @@ vim.keymap.set("n", "<leader>x", close_buffer, { noremap = true, silent = true }
 vim.cmd([[vnoremap <C-h> ""y:%s/<C-R>=escape(@", '/\')<CR>//g<Left><Left>]])
 
 require('lightspeed').setup {}
-require('zenburn').setup ()
+vim.cmd 'colorscheme serenade'
