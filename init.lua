@@ -6,7 +6,9 @@ vim.keymap.set({ 'n', 'v' }, '<C-Down>', '<C-d>zz', { noremap = true, silent = t
 vim.keymap.set('n', '<leader>q', ':q<CR>', { noremap = true, silent = true })
 vim.keymap.set('n', '<leader>bf', vim.lsp.buf.format, { noremap = true, silent = true })
 
-vim.keymap.set('n', '<leader>g', ':Gedit :<CR>', { noremap = true, silent = true })
+vim.keymap.set('n', '<leader>gg', ':Gedit :<CR>', { noremap = true, silent = true })
+vim.keymap.set('n', '<leader>gs', '<C-w>s:Gedit :<CR>', { noremap = true, silent = true})
+vim.keymap.set('n', '<leader>gv', '<C-w>v:Gedit :<CR>', { noremap = true, silent = true})
 
 require('nvim-treesitter.configs').setup {
   highlight = {
