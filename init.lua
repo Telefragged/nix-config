@@ -7,15 +7,14 @@ vim.keymap.set('n', '<leader>q', ':q<CR>', { noremap = true, silent = true })
 vim.keymap.set('n', '<leader>bf', vim.lsp.buf.format, { noremap = true, silent = true })
 
 vim.keymap.set('n', '<leader>gg', ':Gedit :<CR>', { noremap = true, silent = true })
-vim.keymap.set('n', '<leader>gs', '<C-w>s:Gedit :<CR>', { noremap = true, silent = true})
-vim.keymap.set('n', '<leader>gv', '<C-w>v:Gedit :<CR>', { noremap = true, silent = true})
+vim.keymap.set('n', '<leader>gs', '<C-w>s:Gedit :<CR>', { noremap = true, silent = true })
+vim.keymap.set('n', '<leader>gv', '<C-w>v:Gedit :<CR>', { noremap = true, silent = true })
 
 require('nvim-treesitter.configs').setup {
-  highlight = {
-    enable = true,
-
-    additional_vim_regex_highlighting = false,
-  },
+    highlight = {
+        enable = true,
+        additional_vim_regex_highlighting = false,
+    },
 }
 
 local dap = require('dap')
@@ -71,7 +70,7 @@ cmp.setup({
         }),
         ['<CR>'] = cmp.mapping.confirm({
             behavior = cmp.ConfirmBehavior.Replace,
-            select = true,
+            select = false,
         }),
     },
     sources = cmp.config.sources({
@@ -129,7 +128,6 @@ require("rust-tools").setup {
         check = {
             command = "clippy"
         },
-        -- "rust-analyzer.check.command": "clippy"
     },
 }
 
