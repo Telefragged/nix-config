@@ -1,11 +1,35 @@
 { config, pkgs, ... }:
 let
-
   vscode-lldb = pkgs.vscode-extensions.vadimcn.vscode-lldb;
 
   codelldb = "${vscode-lldb}/share/vscode/extensions/vadimcn.vscode-lldb/adapter/codelldb";
   liblldb = "${vscode-lldb}/share/vscode/extensions/vadimcn.vscode-lldb/lldb/lib/liblldb.so";
-in {
+
+  csharpls = pkgs.buildDotnetModule rec {
+    pname = "csharp-language-server";
+    version = "0.6.0";
+
+    src = pkgs.fetchFromGitHub {
+      owner = "razzmatazz";
+      repo = pname;
+      rev = version;
+      sha256 = "sha256-cGy09Q8wzQBH65n2zzIrmqOMkXtq6ylbwe6/tMbVNWw";
+    };
+
+    dotnet-sdk = pkgs.dotnetCorePackages.sdk_7_0;
+    dotnet-runtime = pkgs.dotnetCorePackages.sdk_7_0;
+
+    projectFile = "src/CSharpLanguageServer/CSharpLanguageServer.fsproj";
+
+    nugetDeps = ./deps.nix;
+  };
+
+  # If we need to upgrade csharpls
+  fetch-deps-csharpls = pkgs.writeScriptBin "fetch-deps-csharpls" ''
+    ${csharpls.passthru.fetch-deps}
+  '';
+in
+{
   # Home Manager needs a bit of information about you and the
   # paths it should manage.
   home.username = "vetle";
@@ -85,5 +109,7 @@ in {
     nodejs
     ripgrep
     fd
+    fetch-deps-csharpls
+    csharpls
   ];
 }

@@ -113,6 +113,14 @@ local lua_settings = {
 
 lspconfig['lua_ls'].setup { settings = lua_settings, capabilities = capabilities }
 
+local csharp_ls_config = {
+    cmd = { "/home/vetle/.nix-profile/bin/CSharpLanguageServer" },
+    filetypes = { "cs" },
+    root_dir = lspconfig.util.root_pattern("*.sln", "*.csproj", ".git"),
+}
+
+lspconfig['csharp_ls'].setup(csharp_ls_config)
+
 require("rust-tools").setup {
     dap = {
         adapter = require('rust-tools.dap').get_codelldb_adapter(codelldb_path, liblldb_path),
