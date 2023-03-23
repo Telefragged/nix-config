@@ -30,13 +30,25 @@ dapui.setup {}
 
 vim.keymap.set('n', '<leader>dd', dapui.toggle, { noremap = true, silent = true })
 
-
 require('copilot').setup({
-    suggestion = { enabled = false },
+    suggestion = {
+        enabled = true,
+        auto_trigger = true,
+    },
     panel = { enabled = false },
 })
 
-require("copilot_cmp").setup {}
+local copilot_suggestion = require('copilot.suggestion')
+
+vim.keymap.set('i', '<M-a>', function()
+    return copilot_suggestion.accept()
+end, { silent = true })
+
+
+
+vim.keymap.set('i', '<Tab>', function()
+    return copilot_suggestion.is_visible() == true and "<M-a>" or "<Tab>"
+end, { silent = true, expr = true, remap = true })
 
 require("lsp_signature").setup {}
 
@@ -77,7 +89,6 @@ cmp.setup({
         { name = 'nvim_lsp' },
         { name = 'vsnip' },
         { name = 'path' },
-        { name = 'copilot' },
     })
 })
 
