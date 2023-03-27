@@ -113,6 +113,8 @@ with pkgs.vimPlugins; [
   copilot-lua
   copilot-cmp
 
+  trouble-nvim
+
   nerdtree
   bufferline-nvim
   nvim-web-devicons
