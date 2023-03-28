@@ -133,7 +133,12 @@ local csharp_ls_config = {
 
 lspconfig['csharp_ls'].setup(csharp_ls_config)
 
-require("rust-tools").setup {
+require('rust-tools').setup {
+    tools = {
+        inlay_hints = {
+            auto = false,
+        },
+    },
     dap = {
         adapter = require('rust-tools.dap').get_codelldb_adapter(codelldb_path, liblldb_path),
     },
