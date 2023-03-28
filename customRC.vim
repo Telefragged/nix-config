@@ -23,7 +23,6 @@ inoremap <F2> <Esc>:lua vim.lsp.buf.rename()<CR>
 
 nnoremap <silent> <F12> :lua vim.lsp.buf.definition()<CR>
 nnoremap <silent> <S-F12> :lua vim.lsp.buf.references()<CR>
-nnoremap <silent> <S-w> :bd<CR>
 nnoremap <silent> <S-q> :q<CR>
 
 nnoremap <silent> <M-Left> <C-o>

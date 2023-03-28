@@ -171,6 +171,13 @@ vim.cmd([[vnoremap <C-h> ""y:%s/<C-R>=escape(@", '/\')<CR>//g<Left><Left>]])
 require('lightspeed').setup {}
 vim.cmd 'colorscheme serenade'
 
+require('bufdel').setup {
+    next = 'tabs', -- or 'cycle, 'alternate'
+    quit = true,   -- quit Neovim when last buffer is closed
+}
+
+vim.keymap.set('n', '<S-w>', ':BufDel<cr>', { noremap = true, silent = true })
+
 require('trouble').setup {}
 
 vim.keymap.set("n", "<leader>xx", "<cmd>TroubleToggle<cr>",

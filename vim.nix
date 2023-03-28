@@ -108,6 +108,8 @@ with pkgs.vimPlugins; [
   cmp-vsnip
   vim-vsnip
 
+  nvim-bufdel
+
   telescope-nvim
 
   copilot-lua
