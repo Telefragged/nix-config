@@ -112,7 +112,6 @@ with pkgs.vimPlugins; [
   telescope-nvim
 
   copilot-lua
-  copilot-cmp
 
   trouble-nvim
 
