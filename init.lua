@@ -142,6 +142,8 @@ require("rust-tools").setup {
     },
 }
 
+require('lualine').setup {}
+
 local function close_buffer(force)
     if vim.bo.buftype == "terminal" then
         force = force or #vim.api.nvim_list_wins() < 2 and ":bd!"

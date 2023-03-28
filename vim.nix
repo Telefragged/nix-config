@@ -79,8 +79,7 @@ let
 in
 with pkgs.vimPlugins; [
   vim-nix
-  vim-airline
-  vim-airline-themes
+  lualine-nvim
 
   vim-deus
   vim-deep-space

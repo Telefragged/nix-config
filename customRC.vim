@@ -30,8 +30,6 @@ nnoremap <silent> <M-Right> <C-i>
 
 autocmd BufWritePre * :%s/\s\+$//e
 
-let g:airline#extensions#tabline#enabled = 0
-
 set background=dark
 
 nnoremap <silent> <char-62> :BufferLineCycleNext<CR>
