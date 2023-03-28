@@ -10,6 +10,8 @@ vim.keymap.set('n', '<leader>gg', ':Gedit :<CR>', { noremap = true, silent = tru
 vim.keymap.set('n', '<leader>gs', '<C-w>s:Gedit :<CR>', { noremap = true, silent = true })
 vim.keymap.set('n', '<leader>gv', '<C-w>v:Gedit :<CR>', { noremap = true, silent = true })
 
+vim.keymap.set({ 'n', 'v' }, '<leader>a', vim.lsp.buf.code_action, { noremap = true, silent = true })
+
 require('nvim-treesitter.configs').setup {
     highlight = {
         enable = true,
@@ -44,8 +46,6 @@ vim.keymap.set('i', '<M-a>', function()
     return copilot_suggestion.accept()
 end, { silent = true })
 
-
-
 vim.keymap.set('i', '<Tab>', function()
     return copilot_suggestion.is_visible() == true and "<M-a>" or "<Tab>"
 end, { silent = true, expr = true, remap = true })
@@ -60,6 +60,8 @@ vim.keymap.set('n', '<leader>ff', t_builtin.find_files, {})
 vim.keymap.set('n', '<leader>fg', t_builtin.live_grep, {})
 vim.keymap.set('n', '<leader>fb', t_builtin.buffers, {})
 vim.keymap.set('n', '<leader>fh', t_builtin.help_tags, {})
+vim.keymap.set('n', '<leader>fs', t_builtin.lsp_document_symbols, {})
+vim.keymap.set('n', '<leader>fw', t_builtin.lsp_workspace_symbols, {})
 
 local cmp = require 'cmp'
 
