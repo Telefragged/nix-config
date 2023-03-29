@@ -63,6 +63,9 @@ let
       tree-sitter-rust
       tree-sitter-json
       tree-sitter-lua
+      tree-sitter-vim
+      tree-sitter-bash
+      tree-sitter-regex
     ]);
 
   zenburn-nvim = pkgs.vimUtils.buildVimPlugin {
@@ -124,4 +127,8 @@ with pkgs.vimPlugins; [
 
   which-key-nvim
   lightspeed-nvim
+
+  nui-nvim
+  nvim-notify
+  noice-nvim
 ]
