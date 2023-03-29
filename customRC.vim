@@ -10,11 +10,11 @@ set mouse=a
 set nocindent nosmartindent noautoindent
 filetype indent off
 
-nnoremap <S-Up> :m-2<CR>
-nnoremap <S-Down> :m+<CR>
+nnoremap <silent> <S-Up> :m-2<CR>
+nnoremap <silent> <S-Down> :m+<CR>
 
-inoremap <S-Up> <Esc>:m-2<CR>
-inoremap <S-Down> <Esc>:m+<CR>
+inoremap <silent> <S-Up> <Esc>:m-2<CR>
+inoremap <silent> <S-Down> <Esc>:m+<CR>
 
 nnoremap <silent> <A-z> :NERDTreeToggle<CR>
 
