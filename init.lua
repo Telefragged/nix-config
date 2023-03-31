@@ -136,6 +136,8 @@ local csharp_ls_config = {
 
 lspconfig['csharp_ls'].setup(csharp_ls_config)
 
+lspconfig['fsautocomplete'].setup {}
+
 require('rust-tools').setup {
     tools = {
         inlay_hints = {

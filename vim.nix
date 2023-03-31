@@ -79,6 +79,17 @@ let
     };
   };
 
+  neofsharp-vim = pkgs.vimUtils.buildVimPlugin {
+    name = "neofsharp-vim";
+    nativeBuildInputs = [ ];
+    src = pkgs.fetchFromGitHub {
+      owner = "adelarsq";
+      repo = "neofsharp.vim";
+      rev = "f28bb9665fa859be8543b9828b477dd932743827";
+      sha256 = "sha256-fsZoay9eGe3sPgHztfCEy3myAIYWOdfzPpKH/NveafY=";
+    };
+  };
+
 in
 with pkgs.vimPlugins; [
   vim-nix
@@ -131,4 +142,6 @@ with pkgs.vimPlugins; [
   nui-nvim
   nvim-notify
   noice-nvim
+
+  neofsharp-vim
 ]
