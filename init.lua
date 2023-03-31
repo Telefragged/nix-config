@@ -1,5 +1,7 @@
 vim.g.mapleader = " "
 
+vim.opt.cursorline = true
+
 vim.keymap.set({ 'n', 'v' }, '<C-Up>', '<C-u>zz', { noremap = true, silent = true })
 vim.keymap.set({ 'n', 'v' }, '<C-Down>', '<C-d>zz', { noremap = true, silent = true })
 
