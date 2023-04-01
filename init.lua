@@ -162,8 +162,12 @@ require('rust-tools').setup {
         adapter = require('rust-tools.dap').get_codelldb_adapter(codelldb_path, liblldb_path),
     },
     server = {
-        check = {
-            command = "clippy"
+        settings = {
+            ["rust-analyzer"] = {
+                checkOnSave = {
+                    command = "clippy"
+                },
+            },
         },
     },
 }
