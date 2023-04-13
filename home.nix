@@ -60,14 +60,6 @@ in
       local codelldb_path = "${codelldb}"
       local liblldb_path = "${liblldb}"
     '' + builtins.readFile ./init.lua;
-    package = pkgs.neovim-unwrapped.overrideAttrs (p: {
-      src = pkgs.fetchFromGitHub {
-        owner = "neovim";
-        repo = "neovim";
-        rev = "v0.8.3";
-        sha256 = "sha256-ItJ8aX/WUfcAovxRsXXyWKBAI92hFloYIZiv7viPIdQ=";
-      };
-    });
   };
 
   programs.tmux = {
