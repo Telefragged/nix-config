@@ -1,5 +1,7 @@
 vim.g.mapleader = " "
 
+vim.opt.clipboard = "unnamedplus"
+
 vim.opt.cursorline = true
 
 vim.keymap.set({ 'n', 'v' }, '<C-Up>', '<C-u>zz', { noremap = true, silent = true })
