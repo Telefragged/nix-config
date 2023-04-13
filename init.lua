@@ -19,6 +19,7 @@ vim.keymap.set('n', '<leader>gb', ':Git blame<CR>', { noremap = true, silent = t
 
 vim.keymap.set('n', '<leader>aa', vim.lsp.buf.hover, { noremap = true, silent = true })
 vim.keymap.set({ 'n', 'v' }, '<leader>ac', vim.lsp.buf.code_action, { noremap = true, silent = true })
+vim.keymap.set('n', '<leader>e', vim.diagnostic.open_float, { noremap = true, silent = true })
 
 vim.keymap.set('n', '<C-w>z', '<C-w>|<C-w>_', { noremap = true, silent = true })
 
