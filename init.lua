@@ -4,6 +4,8 @@ vim.opt.cursorline = true
 
 vim.keymap.set({ 'n', 'v' }, '<C-Up>', '<C-u>zz', { noremap = true, silent = true })
 vim.keymap.set({ 'n', 'v' }, '<C-Down>', '<C-d>zz', { noremap = true, silent = true })
+vim.keymap.set({ 'n', 'v' }, '<C-k>', '<C-u>zz', { noremap = true, silent = true })
+vim.keymap.set({ 'n', 'v' }, '<C-j>', '<C-d>zz', { noremap = true, silent = true })
 
 vim.keymap.set('n', '<leader>q', ':q<CR>', { noremap = true, silent = true })
 vim.keymap.set('n', '<leader>bf', vim.lsp.buf.format, { noremap = true, silent = true })
