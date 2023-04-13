@@ -192,6 +192,13 @@ vim.cmd([[vnoremap <C-h> ""y:%s/<C-R>=escape(@", '/\')<CR>//g<Left><Left>]])
 require('lightspeed').setup {}
 vim.cmd 'colorscheme serenade'
 
+vim.api.nvim_command(
+    [[ hi diffAdded ctermfg=188 ctermbg=64 cterm=NONE guifg=#ffffff guibg=#335533 gui=NONE ]]
+)
+vim.api.nvim_command(
+    [[ hi diffRemoved ctermfg=88 ctermbg=NONE cterm=NONE guifg=#ffffff guibg=#553333 gui=NONE ]]
+)
+
 require('bufdel').setup {
     next = 'tabs', -- or 'cycle, 'alternate'
     quit = true,   -- quit Neovim when last buffer is closed
