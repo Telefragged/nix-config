@@ -7,13 +7,13 @@ let
 
   csharpls = pkgs.buildDotnetModule rec {
     pname = "csharp-language-server";
-    version = "0.6.0";
+    version = "0.7.1";
 
     src = pkgs.fetchFromGitHub {
       owner = "razzmatazz";
       repo = pname;
       rev = version;
-      sha256 = "sha256-cGy09Q8wzQBH65n2zzIrmqOMkXtq6ylbwe6/tMbVNWw";
+      sha256 = "sha256-6ZCbhY4TgfgKn5ofJLh29nuazWlxa4rLK6jzDlm2IwM=";
     };
 
     dotnet-sdk = pkgs.dotnetCorePackages.sdk_7_0;

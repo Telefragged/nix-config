@@ -140,11 +140,12 @@ local csharp_ls_config = {
     cmd = { "/home/vetle/.nix-profile/bin/CSharpLanguageServer" },
     filetypes = { "cs" },
     root_dir = lspconfig.util.root_pattern("*.sln", "*.csproj", ".git"),
+    capabilities = capabilities,
 }
 
 lspconfig['csharp_ls'].setup(csharp_ls_config)
 
-lspconfig['fsautocomplete'].setup {}
+lspconfig['fsautocomplete'].setup { capabilities = capabilities }
 
 require('rust-tools').setup {
     tools = {
