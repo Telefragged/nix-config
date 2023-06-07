@@ -122,6 +122,7 @@ with pkgs.vimPlugins; [
   vim-vsnip
 
   nvim-bufdel
+  vim-commentary
 
   telescope-nvim
 

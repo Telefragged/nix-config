@@ -23,6 +23,11 @@ vim.keymap.set('n', '<leader>e', vim.diagnostic.open_float, { noremap = true, si
 
 vim.keymap.set('n', '<C-w>z', '<C-w>|<C-w>_', { noremap = true, silent = true })
 
+vim.api.nvim_create_autocmd('FileType', {
+    pattern = { 'fsharp' },
+    command = 'setlocal commentstring=//\\ %s',
+})
+
 require('nvim-treesitter.configs').setup {
     highlight = {
         enable = true,
