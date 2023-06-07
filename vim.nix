@@ -56,18 +56,6 @@ let
     };
   };
 
-  nvim-treesitter = pkgs.vimPlugins.nvim-treesitter.withPlugins (plugins:
-    with tree-sitter-grammars; [
-      tree-sitter-nix
-      tree-sitter-python
-      tree-sitter-rust
-      tree-sitter-json
-      tree-sitter-lua
-      tree-sitter-vim
-      tree-sitter-bash
-      tree-sitter-regex
-    ]);
-
   zenburn-nvim = pkgs.vimUtils.buildVimPlugin {
     name = "zenburn";
     nativeBuildInputs = [ ];
@@ -90,6 +78,17 @@ let
     };
   };
 
+  nvim-treesitter = pkgs.vimPlugins.nvim-treesitter.withPlugins (plugins:
+    with tree-sitter-grammars; [
+      tree-sitter-nix
+      tree-sitter-python
+      tree-sitter-rust
+      tree-sitter-json
+      tree-sitter-lua
+      tree-sitter-vim
+      tree-sitter-bash
+      tree-sitter-regex
+    ]);
 in
 with pkgs.vimPlugins; [
   vim-nix
