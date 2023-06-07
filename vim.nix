@@ -140,8 +140,6 @@ with pkgs.vimPlugins; [
   lightspeed-nvim
 
   nui-nvim
-  nvim-notify
-  noice-nvim
 
   neofsharp-vim
 ]
