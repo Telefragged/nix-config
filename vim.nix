@@ -124,6 +124,7 @@ with pkgs.vimPlugins; [
   vim-commentary
 
   telescope-nvim
+  harpoon
 
   copilot-lua
 

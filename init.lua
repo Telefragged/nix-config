@@ -231,3 +231,25 @@ vim.keymap.set("n", "<leader>xq", "<cmd>TroubleToggle quickfix<cr>",
     { silent = true, noremap = true }
 )
 
+local harpoon_mark = require("harpoon.mark")
+local harpoon_ui = require("harpoon.ui")
+
+vim.keymap.set("n", "<leader>ra", harpoon_mark.add_file,
+    { silent = true, noremap = true }
+)
+
+vim.keymap.set("n", "<leader>rr", harpoon_ui.toggle_quick_menu,
+    { silent = true, noremap = true }
+)
+
+for i = 1, 4, 1 do
+    vim.keymap.set("n", "<leader>r" .. i, function()
+        harpoon_ui.nav_file(i)
+    end, { silent = true, noremap = true })
+end
+
+require("telescope").load_extension('harpoon')
+
+vim.keymap.set("n", "<leader>fr", "<cmd>Telescope harpoon marks<cr>",
+    { silent = true, noremap = true }
+)
