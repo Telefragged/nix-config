@@ -210,7 +210,7 @@ require('bufdel').setup {
     quit = true,   -- quit Neovim when last buffer is closed
 }
 
-vim.keymap.set('n', '<S-w>', ':BufDel<cr>', { noremap = true, silent = true })
+vim.keymap.set('n', '<leader>w', ':BufDel<cr>', { noremap = true, silent = true })
 
 require('trouble').setup {}
 
