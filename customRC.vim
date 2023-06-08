@@ -16,6 +16,9 @@ nnoremap <silent> <S-Down> :m+<CR>
 inoremap <silent> <S-Up> <Esc>:m-2<CR>
 inoremap <silent> <S-Down> <Esc>:m+<CR>
 
+vnoremap <silent> <S-Up> :m-2<CR>gv
+vnoremap <silent> <S-Down> :m'>+<CR>gv
+
 nnoremap <silent> <A-z> :NERDTreeToggle<CR>
 
 nnoremap <F2> :lua vim.lsp.buf.rename()<CR>
