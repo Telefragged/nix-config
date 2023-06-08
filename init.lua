@@ -170,30 +170,6 @@ require('rust-tools').setup {
 
 require('lualine').setup {}
 
-local function close_buffer(force)
-    if vim.bo.buftype == "terminal" then
-        force = force or #vim.api.nvim_list_wins() < 2 and ":bd!"
-        local swap = force and #vim.api.nvim_list_bufs() > 1 and ":bp | bd!" .. vim.fn.bufnr()
-        return vim.cmd(swap or force or "hide")
-    end
-
-    local fileExists = vim.fn.filereadable(vim.fn.expand("%p"))
-    local modified = vim.api.nvim_buf_get_option(vim.fn.bufnr(), "modified")
-
-    -- if file doesnt exist & its modified
-    if fileExists == 0 and modified then
-        print("no file name? add it now!")
-        return
-    end
-
-    force = force or not vim.bo.buflisted or vim.bo.buftype == "nofile"
-
-    -- if not force, change to prev buf and then close current
-    local close_cmd = force and ":bd!" or ":bp | bd" .. vim.fn.bufnr()
-    vim.cmd(close_cmd)
-end
-
-vim.keymap.set("n", "<leader>x", close_buffer, { noremap = true, silent = true })
 vim.cmd([[vnoremap <C-h> ""y:%s/<C-R>=escape(@", '/\')<CR>//g<Left><Left>]])
 
 require('lightspeed').setup {}
