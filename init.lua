@@ -242,9 +242,10 @@ vim.keymap.set("n", "<leader>rr", harpoon_ui.toggle_quick_menu,
 )
 
 for i = 1, 4, 1 do
-    vim.keymap.set("n", "<leader>r" .. i, function()
+    local nav_function = function()
         harpoon_ui.nav_file(i)
-    end, { silent = true, noremap = true })
+    end
+    vim.keymap.set("n", "<leader>" .. i, nav_function, { silent = true, noremap = true })
 end
 
 require("telescope").load_extension('harpoon')
