@@ -168,12 +168,35 @@ require('rust-tools').setup {
     },
 }
 
-require('lualine').setup {}
-
 vim.cmd([[vnoremap <C-h> ""y:%s/<C-R>=escape(@", '/\')<CR>//g<Left><Left>]])
 
 require('lightspeed').setup {}
-vim.cmd 'colorscheme serenade'
+vim.cmd 'let g:everforest_background = "hard"'
+vim.cmd 'colorscheme everforest'
+
+require('lualine').setup {
+    options = {
+        theme = 'everforest',
+        section_separators = '',
+        component_separators = '',
+    },
+    sections = {
+        lualine_a = { 'mode' },
+        lualine_b = { 'branch' },
+        lualine_c = { 'filename' },
+        lualine_x = { 'encoding', 'fileformat', 'filetype' },
+        lualine_y = { 'progress' },
+        lualine_z = { 'location' },
+    },
+    inactive_sections = {
+        lualine_a = { 'mode' },
+        lualine_b = { 'branch' },
+        lualine_c = { 'filename' },
+        lualine_x = { 'encoding', 'fileformat', 'filetype' },
+        lualine_y = { 'progress' },
+        lualine_z = { 'location' },
+    },
+}
 
 vim.api.nvim_command(
     [[ hi diffAdded ctermfg=188 ctermbg=64 cterm=NONE guifg=#ffffff guibg=#335533 gui=NONE ]]

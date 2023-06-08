@@ -99,6 +99,7 @@ with pkgs.vimPlugins; [
   serenade
   gruvbox
   zenburn-nvim
+  everforest
   vim-transparent
 
   nvim-treesitter
