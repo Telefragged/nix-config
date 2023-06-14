@@ -100,7 +100,6 @@ with pkgs.vimPlugins; [
   gruvbox
   zenburn-nvim
   everforest
-  vim-transparent
 
   nvim-treesitter
 
