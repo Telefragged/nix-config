@@ -77,8 +77,6 @@ in
 
       set-option -g repeat-time 0
 
-      set -g default-terminal "screen-256color"
-
       unbind C-b
       set-option -g prefix C-b
       bind-key C-b send-prefix
@@ -88,7 +86,8 @@ in
       bind-key c new-window -c "#{pane_current_path}"
       bind-key C-c new-window
 
-      set-option -sa terminal-overrides ',alacritty:RGB'
+      set -g default-terminal "tmux-256color"
+      set-option -ga terminal-overrides ',*:RGB'
     '';
   };
 
