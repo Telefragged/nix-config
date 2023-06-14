@@ -86,8 +86,9 @@ in
       bind-key c new-window -c "#{pane_current_path}"
       bind-key C-c new-window
 
-      set -g default-terminal "tmux-256color"
-      set-option -ga terminal-overrides ',*:RGB'
+      set -g default-terminal "screen-256color"
+      set-option -ga terminal-overrides ",xterm-256color:Tc"
+
     '';
   };
 
