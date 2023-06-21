@@ -87,7 +87,7 @@ in
       bind-key C-c new-window
 
       set -g default-terminal "screen-256color"
-      set-option -ga terminal-overrides ",xterm-256color:Tc"
+      set-option -ga terminal-overrides ",*:Tc"
 
     '';
   };
