@@ -257,3 +257,5 @@ require("telescope").load_extension('harpoon')
 vim.keymap.set("n", "<leader>fr", "<cmd>Telescope harpoon marks<cr>",
     { silent = true, noremap = true }
 )
+
+require('nvim-surround').setup {}

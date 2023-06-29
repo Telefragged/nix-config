@@ -122,6 +122,7 @@ with pkgs.vimPlugins; [
 
   nvim-bufdel
   vim-commentary
+  nvim-surround
 
   telescope-nvim
   harpoon
