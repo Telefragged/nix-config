@@ -4,6 +4,8 @@ vim.opt.clipboard = "unnamedplus"
 
 vim.opt.cursorline = true
 
+vim.opt.signcolumn = "yes"
+
 vim.keymap.set({ 'n', 'v' }, '<C-Up>', '<C-u>zz', { noremap = true, silent = true })
 vim.keymap.set({ 'n', 'v' }, '<C-Down>', '<C-d>zz', { noremap = true, silent = true })
 vim.keymap.set({ 'n', 'v' }, '<C-k>', '<C-u>zz', { noremap = true, silent = true })
