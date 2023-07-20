@@ -95,8 +95,8 @@ in
   home.packages = with pkgs; [
     lsd
     deno
-    rust-analyzer
     rnix-lsp
+    nixd
     lua-language-server
     nerdfonts
     nodePackages.vim-language-server

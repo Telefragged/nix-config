@@ -117,7 +117,7 @@ local capabilities = require('cmp_nvim_lsp').default_capabilities(vim.lsp.protoc
 local lspconfig = require('lspconfig')
 
 lspconfig['pyright'].setup { capabilities = capabilities }
-lspconfig['rnix'].setup { capabilities = capabilities }
+lspconfig['nixd'].setup { capabilities = capabilities }
 lspconfig['vimls'].setup { capabilities = capabilities }
 
 local lua_settings = {
