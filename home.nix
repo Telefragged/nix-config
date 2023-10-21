@@ -56,7 +56,7 @@ in
     enable = true;
     viAlias = true;
     vimAlias = true;
-    plugins = import ./vim.nix { inherit pkgs; };
+    plugins = import ./vim.nix { inherit pkgs sources; };
     extraConfig = builtins.readFile ./customRC.vim;
     extraLuaConfig = ''
       local codelldb_path = "${codelldb}"

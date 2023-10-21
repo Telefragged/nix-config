@@ -10,5 +10,17 @@
         "type": "tarball",
         "url": "https://github.com/razzmatazz/csharp-language-server/archive/4d03d8c62a407bc4a712c53d8e5999c164aa689e.tar.gz",
         "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
+    },
+    "neofsharp-vim": {
+        "branch": "master",
+        "description": "Basic F# support for (Neo)Vim 🔷",
+        "homepage": "",
+        "owner": "adelarsq",
+        "repo": "neofsharp.vim",
+        "rev": "f28bb9665fa859be8543b9828b477dd932743827",
+        "sha256": "1xk9vvdzr1wj7vrxff8nhq0b4yfbhkqbbwq17vnfs6ay5xmniiky",
+        "type": "tarball",
+        "url": "https://github.com/adelarsq/neofsharp.vim/archive/f28bb9665fa859be8543b9828b477dd932743827.tar.gz",
+        "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
     }
 }
