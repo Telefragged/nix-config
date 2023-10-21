@@ -119,6 +119,7 @@ local lspconfig = require('lspconfig')
 lspconfig['pyright'].setup { capabilities = capabilities }
 lspconfig['nixd'].setup { capabilities = capabilities }
 lspconfig['vimls'].setup { capabilities = capabilities }
+lspconfig['marksman'].setup { capabilities = capabilities }
 
 local lua_settings = {
     Lua = {

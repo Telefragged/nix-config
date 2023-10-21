@@ -105,6 +105,7 @@ in
     fd
     fetch-deps-csharpls
     csharpls
+    marksman
     niv
   ];
 }
