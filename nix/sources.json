@@ -1,0 +1,14 @@
+{
+    "csharp-language-server": {
+        "branch": "master",
+        "description": "Roslyn-based LSP language server for C#",
+        "homepage": "",
+        "owner": "razzmatazz",
+        "repo": "csharp-language-server",
+        "rev": "4d03d8c62a407bc4a712c53d8e5999c164aa689e",
+        "sha256": "0i3sf395095hxyjzj7x87q33r83xjpn1k9iiz8pw4jib7xqv20vs",
+        "type": "tarball",
+        "url": "https://github.com/razzmatazz/csharp-language-server/archive/4d03d8c62a407bc4a712c53d8e5999c164aa689e.tar.gz",
+        "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
+    }
+}

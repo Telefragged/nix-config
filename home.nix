@@ -1,5 +1,7 @@
 { config, pkgs, ... }:
 let
+  sources = import ./nix/sources.nix;
+
   vscode-lldb = pkgs.vscode-extensions.vadimcn.vscode-lldb;
 
   codelldb = "${vscode-lldb}/share/vscode/extensions/vadimcn.vscode-lldb/adapter/codelldb";
@@ -9,12 +11,7 @@ let
     pname = "csharp-language-server";
     version = "0.7.1";
 
-    src = pkgs.fetchFromGitHub {
-      owner = "razzmatazz";
-      repo = pname;
-      rev = version;
-      sha256 = "sha256-6ZCbhY4TgfgKn5ofJLh29nuazWlxa4rLK6jzDlm2IwM=";
-    };
+    src = sources.csharp-language-server;
 
     dotnet-sdk = pkgs.dotnetCorePackages.sdk_7_0;
     dotnet-runtime = pkgs.dotnetCorePackages.sdk_7_0;
@@ -108,5 +105,6 @@ in
     fd
     fetch-deps-csharpls
     csharpls
+    niv
   ];
 }
