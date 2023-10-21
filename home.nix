@@ -89,8 +89,35 @@ in
     '';
   };
 
+  programs.bash = {
+    enable = true;
+    bashrcExtra = ''
+      get_ps1() {
+        local RESETC="\[\033[0m\]"
+
+        local USERC="\[\033[38;2;128;187;179m\]"
+        local WDIRC="\[\033[38;2;107;132;120m\]"
+        local GITC="\[\033[38;2;219;188;127m\]"
+
+        echo "$USERC\u$RESETC:$WDIRC\w$GITC\$(__git_ps1 ' (%s)')$RESETC$ "
+      }
+
+      export PS1="$(get_ps1)"
+      export EDITOR=nvim
+    '';
+  };
+
+  programs.direnv.enable = true;
+  programs.direnv.nix-direnv.enable = true;
+
+  programs.lsd = {
+    enable = true;
+    enableAliases = true;
+  };
+
+  programs.git.enable = true;
+
   home.packages = with pkgs; [
-    lsd
     deno
     rnix-lsp
     nixd
@@ -98,7 +125,6 @@ in
     nerdfonts
     nodePackages.vim-language-server
     nodePackages.pyright
-    git
     flameshot
     nodejs
     ripgrep
