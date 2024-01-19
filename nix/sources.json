@@ -5,10 +5,10 @@
         "homepage": "",
         "owner": "razzmatazz",
         "repo": "csharp-language-server",
-        "rev": "4d03d8c62a407bc4a712c53d8e5999c164aa689e",
-        "sha256": "0i3sf395095hxyjzj7x87q33r83xjpn1k9iiz8pw4jib7xqv20vs",
+        "rev": "56a5c63c062008ebf850b363c020e4e3303c8d87",
+        "sha256": "118c0jbgsd8n20j8l8ncpvphsvjirnpycn5clq71n81l7m1i6h0z",
         "type": "tarball",
-        "url": "https://github.com/razzmatazz/csharp-language-server/archive/4d03d8c62a407bc4a712c53d8e5999c164aa689e.tar.gz",
+        "url": "https://github.com/razzmatazz/csharp-language-server/archive/56a5c63c062008ebf850b363c020e4e3303c8d87.tar.gz",
         "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
     },
     "neofsharp-vim": {

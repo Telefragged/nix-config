@@ -9,12 +9,12 @@ let
 
   csharpls = pkgs.buildDotnetModule rec {
     pname = "csharp-language-server";
-    version = "0.7.1";
+    version = "0.13.0";
 
     src = sources.csharp-language-server;
 
-    dotnet-sdk = pkgs.dotnetCorePackages.sdk_7_0;
-    dotnet-runtime = pkgs.dotnetCorePackages.sdk_7_0;
+    dotnet-sdk = pkgs.dotnetCorePackages.sdk_8_0;
+    dotnet-runtime = pkgs.dotnetCorePackages.sdk_8_0;
 
     projectFile = "src/CSharpLanguageServer/CSharpLanguageServer.fsproj";
 
