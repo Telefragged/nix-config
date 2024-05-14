@@ -5,10 +5,10 @@
         "homepage": "",
         "owner": "zbirenbaum",
         "repo": "copilot.lua",
-        "rev": "b03617a6dc4bc88b65ab5deac1631da9a9c2dcaf",
-        "sha256": "1pq8h1fnx5fkk6nj10ag6hx1br0c6vpclmcrw67qss8n52g0zwgk",
+        "rev": "f7612f5af4a7d7615babf43ab1e67a2d790c13a6",
+        "sha256": "01xwq4kz4a3m90z29pf5yp8aiax1nv80lpxzxqc3k7nfr5vfqz95",
         "type": "tarball",
-        "url": "https://github.com/zbirenbaum/copilot.lua/archive/b03617a6dc4bc88b65ab5deac1631da9a9c2dcaf.tar.gz",
+        "url": "https://github.com/zbirenbaum/copilot.lua/archive/f7612f5af4a7d7615babf43ab1e67a2d790c13a6.tar.gz",
         "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
     },
     "csharp-language-server": {
