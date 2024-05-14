@@ -23,6 +23,8 @@ let
       vim
       regex
       markdown
+      c
+      vimdoc
     ]);
 in
 with pkgs.vimPlugins; [
