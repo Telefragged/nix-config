@@ -7,6 +7,12 @@ let
     src = sources.neofsharp-vim;
   };
 
+  copilot-lua = pkgs.vimUtils.buildVimPlugin {
+    name = "copilot-lua";
+    nativeBuildInputs = [ ];
+    src = sources.copilot-lua;
+  };
+
   nvim-treesitter = pkgs.vimPlugins.nvim-treesitter.withPlugins (plugins:
     with plugins; [
       nix

@@ -1,4 +1,16 @@
 {
+    "copilot-lua": {
+        "branch": "master",
+        "description": "Fully featured & enhanced replacement for copilot.vim complete with API for interacting with Github Copilot",
+        "homepage": "",
+        "owner": "zbirenbaum",
+        "repo": "copilot.lua",
+        "rev": "b03617a6dc4bc88b65ab5deac1631da9a9c2dcaf",
+        "sha256": "1pq8h1fnx5fkk6nj10ag6hx1br0c6vpclmcrw67qss8n52g0zwgk",
+        "type": "tarball",
+        "url": "https://github.com/zbirenbaum/copilot.lua/archive/b03617a6dc4bc88b65ab5deac1631da9a9c2dcaf.tar.gz",
+        "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
+    },
     "csharp-language-server": {
         "branch": "master",
         "description": "Roslyn-based LSP language server for C#",
