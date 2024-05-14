@@ -29,10 +29,10 @@
         "homepage": "",
         "owner": "adelarsq",
         "repo": "neofsharp.vim",
-        "rev": "f28bb9665fa859be8543b9828b477dd932743827",
-        "sha256": "1xk9vvdzr1wj7vrxff8nhq0b4yfbhkqbbwq17vnfs6ay5xmniiky",
+        "rev": "b8f7532bc7311a8e896ffd5d83790887163fac05",
+        "sha256": "0bzq3zkgsmii12k806wizp3l1hnyqf4q8cz3fnlggzxlbw36qdh1",
         "type": "tarball",
-        "url": "https://github.com/adelarsq/neofsharp.vim/archive/f28bb9665fa859be8543b9828b477dd932743827.tar.gz",
+        "url": "https://github.com/adelarsq/neofsharp.vim/archive/b8f7532bc7311a8e896ffd5d83790887163fac05.tar.gz",
         "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
     }
 }
