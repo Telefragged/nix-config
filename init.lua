@@ -25,6 +25,8 @@ vim.keymap.set('n', '<leader>e', vim.diagnostic.open_float, { noremap = true, si
 
 vim.keymap.set('n', '<C-w>z', '<C-w>|<C-w>_', { noremap = true, silent = true })
 
+vim.keymap.set({ 'i', 'v' }, '<C-e>', '<Esc>', { noremap = true, silent = true })
+
 vim.api.nvim_create_autocmd('FileType', {
     pattern = { 'fsharp' },
     command = 'setlocal commentstring=//\\ %s',
@@ -46,7 +48,7 @@ vim.keymap.set('n', '<F11>', dap.step_into, { noremap = true, silent = true })
 require('nvim-dap-virtual-text').setup {}
 
 local dapui = require('dapui')
-dapui.setup {}
+dapui.setup(nil)
 
 vim.keymap.set('n', '<leader>dd', dapui.toggle, { noremap = true, silent = true })
 
@@ -60,13 +62,9 @@ require('copilot').setup({
 
 local copilot_suggestion = require('copilot.suggestion')
 
-vim.keymap.set('i', '<M-a>', function()
+vim.keymap.set('i', '<C-a>', function()
     return copilot_suggestion.accept()
 end, { silent = true })
-
-vim.keymap.set('i', '<Tab>', function()
-    return copilot_suggestion.is_visible() == true and "<M-a>" or "<Tab>"
-end, { silent = true, expr = true, remap = true })
 
 require("lsp_signature").setup {}
 
@@ -144,14 +142,13 @@ local lua_settings = {
 
 lspconfig['lua_ls'].setup { settings = lua_settings, capabilities = capabilities }
 
-local csharp_ls_config = {
+lspconfig['csharp_ls'].setup {
     cmd = { "/home/vetle/.nix-profile/bin/CSharpLanguageServer" },
     filetypes = { "cs" },
     root_dir = lspconfig.util.root_pattern("*.sln", "*.csproj", ".git"),
     capabilities = capabilities,
 }
 
-lspconfig['csharp_ls'].setup(csharp_ls_config)
 
 lspconfig['fsautocomplete'].setup { capabilities = capabilities }
 
@@ -206,7 +203,7 @@ vim.api.nvim_command(
 
 require('bufdel').setup {
     next = 'tabs', -- or 'cycle, 'alternate'
-    quit = true,   -- quit Neovim when last buffer is closed
+    quit = false,  -- quit Neovim when last buffer is closed
 }
 
 vim.keymap.set('n', '<leader>w', ':BufDel<cr>', { noremap = true, silent = true })
@@ -254,3 +251,24 @@ vim.keymap.set("n", "<leader>fr", "<cmd>Telescope harpoon marks<cr>",
 )
 
 require('nvim-surround').setup {}
+
+-- Enable document highlight on hover for lsp clients that support it
+vim.api.nvim_create_autocmd('LspAttach', {
+    callback = function(args)
+        local bufnr = args.buf
+        local client = vim.lsp.get_client_by_id(args.data.client_id)
+        if client.server_capabilities.documentHighlightProvider then
+            vim.api.nvim_create_autocmd('CursorHold', {
+                buffer = bufnr,
+                callback = function() vim.lsp.buf.document_highlight() end,
+            })
+
+            vim.api.nvim_create_autocmd('CursorMoved', {
+                buffer = bufnr,
+                callback = function() vim.lsp.buf.clear_references() end,
+            })
+        end
+    end,
+})
+
+vim.cmd 'set updatetime=250'
