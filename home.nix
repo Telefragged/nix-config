@@ -92,6 +92,8 @@ in
   programs.bash = {
     enable = true;
     bashrcExtra = ''
+      . ${pkgs.git}/share/bash-completion/completions/git-prompt.sh
+
       get_ps1() {
         local RESETC="\[\033[0m\]"
 
