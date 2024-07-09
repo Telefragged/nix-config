@@ -25,7 +25,7 @@ vim.keymap.set('n', '<leader>e', vim.diagnostic.open_float, { noremap = true, si
 
 vim.keymap.set('n', '<C-w>z', '<C-w>|<C-w>_', { noremap = true, silent = true })
 
-vim.keymap.set({ 'i', 'v' }, '<C-e>', '<Esc>', { noremap = true, silent = true })
+vim.keymap.set({ 'n', 'i', 'v' }, '<C-e>', '<Esc>', { noremap = true, silent = true })
 
 vim.api.nvim_create_autocmd('FileType', {
     pattern = { 'fsharp' },
@@ -94,10 +94,7 @@ cmp.setup({
         ['<C-f>'] = cmp.mapping(cmp.mapping.scroll_docs(4), { 'i', 'c' }),
         ['<C-Space>'] = cmp.mapping(cmp.mapping.complete(), { 'i', 'c' }),
         ['<C-y>'] = cmp.config.disable, -- Specify `cmp.config.disable` if you want to remove the default `<C-y>` mapping.
-        ['<C-e>'] = cmp.mapping({
-            i = cmp.mapping.abort(),
-            c = cmp.mapping.close(),
-        }),
+        ['<C-e>'] = cmp.config.disable,
         ['<CR>'] = cmp.mapping.confirm({
             behavior = cmp.ConfirmBehavior.Replace,
             select = false,
