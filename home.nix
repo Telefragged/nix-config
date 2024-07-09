@@ -106,6 +106,7 @@ in
 
       export PS1="$(get_ps1)"
       export EDITOR=nvim
+      export PATH=$PATH:$HOME/.cargo/bin
     '';
   };
 
