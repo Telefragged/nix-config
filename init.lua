@@ -209,19 +209,13 @@ vim.keymap.set('n', '<leader>w', ':BufDel<cr>', { noremap = true, silent = true 
 
 require('trouble').setup {}
 
-vim.keymap.set("n", "<leader>xx", "<cmd>TroubleToggle<cr>",
+vim.keymap.set("n", "<leader>xx", "<cmd>Trouble diagnostics<cr>",
     { silent = true, noremap = true }
 )
-vim.keymap.set("n", "<leader>xw", "<cmd>TroubleToggle workspace_diagnostics<cr>",
+vim.keymap.set("n", "<leader>xl", "<cmd>Trouble loclist<cr>",
     { silent = true, noremap = true }
 )
-vim.keymap.set("n", "<leader>xd", "<cmd>TroubleToggle document_diagnostics<cr>",
-    { silent = true, noremap = true }
-)
-vim.keymap.set("n", "<leader>xl", "<cmd>TroubleToggle loclist<cr>",
-    { silent = true, noremap = true }
-)
-vim.keymap.set("n", "<leader>xq", "<cmd>TroubleToggle quickfix<cr>",
+vim.keymap.set("n", "<leader>xq", "<cmd>Trouble quickfix<cr>",
     { silent = true, noremap = true }
 )
 
