@@ -21,7 +21,6 @@ vim.keymap.set('n', '<leader>gb', ':Git blame<CR>', { noremap = true, silent = t
 
 vim.keymap.set('n', '<leader>aa', vim.lsp.buf.hover, { noremap = true, silent = true })
 vim.keymap.set({ 'n', 'v' }, '<leader>ac', vim.lsp.buf.code_action, { noremap = true, silent = true })
-vim.keymap.set('n', '<leader>e', vim.diagnostic.open_float, { noremap = true, silent = true })
 
 vim.keymap.set('n', '<C-w>z', '<C-w>|<C-w>_', { noremap = true, silent = true })
 
@@ -269,3 +268,21 @@ vim.api.nvim_create_autocmd('LspAttach', {
 })
 
 vim.cmd 'set updatetime=250'
+
+require("lsp_lines").setup()
+
+vim.diagnostic.config({
+    virtual_text = false,
+    signs = true,
+    underline = true,
+    update_in_insert = true,
+})
+
+local function toggle_lsp_lines()
+    local flag = not vim.diagnostic.config().virtual_lines
+    vim.diagnostic.config({ virtual_lines = flag })
+    vim.cmd("redraw")
+end
+
+vim.keymap.set("", "<leader>e", toggle_lsp_lines, { noremap = true })
+vim.diagnostic.config({ virtual_lines = false })

@@ -28,6 +28,8 @@ let
     ]);
 in
 with pkgs.vimPlugins; [
+  lsp_lines-nvim
+
   vim-nix
   lualine-nvim
 
