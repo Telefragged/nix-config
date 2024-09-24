@@ -172,6 +172,7 @@ vim.cmd([[vnoremap <C-h> ""y:%s/<C-R>=escape(@", '/\')<CR>//g<Left><Left>]])
 
 require('lightspeed').setup {}
 vim.cmd 'let g:everforest_background = "hard"'
+vim.cmd 'let g:everforest_diagnostic_virtual_text = "colored"'
 vim.cmd 'colorscheme everforest'
 
 require('lualine').setup {
