@@ -7,7 +7,7 @@ let
   codelldb = "${vscode-lldb}/share/vscode/extensions/vadimcn.vscode-lldb/adapter/codelldb";
   liblldb = "${vscode-lldb}/share/vscode/extensions/vadimcn.vscode-lldb/lldb/lib/liblldb.so";
 
-  csharpls = pkgs.buildDotnetModule rec {
+  csharpls = pkgs.buildDotnetModule {
     pname = "csharp-language-server";
     version = "0.13.0";
 

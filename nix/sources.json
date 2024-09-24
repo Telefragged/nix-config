@@ -17,10 +17,10 @@
         "homepage": "",
         "owner": "razzmatazz",
         "repo": "csharp-language-server",
-        "rev": "56a5c63c062008ebf850b363c020e4e3303c8d87",
-        "sha256": "118c0jbgsd8n20j8l8ncpvphsvjirnpycn5clq71n81l7m1i6h0z",
+        "rev": "191c7eec86529b249c101b40c55fda2840bcad3a",
+        "sha256": "0f1a3w5dc3dn36j0nmx9qlpf3bwdbxr7dnxsk1ij2jxy48ifjxzw",
         "type": "tarball",
-        "url": "https://github.com/razzmatazz/csharp-language-server/archive/56a5c63c062008ebf850b363c020e4e3303c8d87.tar.gz",
+        "url": "https://github.com/razzmatazz/csharp-language-server/archive/191c7eec86529b249c101b40c55fda2840bcad3a.tar.gz",
         "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
     },
     "neofsharp-vim": {
