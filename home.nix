@@ -25,11 +25,6 @@ let
   fetch-deps-csharpls = pkgs.writeScriptBin "fetch-deps-csharpls" ''
     ${csharpls.passthru.fetch-deps}
   '';
-
-  flameshot-wayland = pkgs.flameshot.overrideAttrs (o: {
-    cmakeFlags = [ "-DUSE_WAYLAND_CLIPBOARD=true" ];
-    nativeBuildInputs = o.nativeBuildInputs ++ [ pkgs.libsForQt5.kguiaddons ];
-  });
 in
 {
   # Home Manager needs a bit of information about you and the
@@ -148,7 +143,6 @@ in
 
       set -g default-terminal "screen-256color"
       set-option -ga terminal-overrides ",*:Tc"
-
     '';
   };
 
@@ -178,8 +172,7 @@ in
     lua-language-server
     nerdfonts
     nodePackages.vim-language-server
-    nodePackages.pyright
-    flameshot
+    # nodePackages.pyright
     nodejs
     ripgrep
     fd
@@ -187,5 +180,6 @@ in
     csharpls
     marksman
     niv
+    nixpkgs-fmt
   ];
 }
