@@ -76,8 +76,8 @@ in
         "$git_branch"
         "$git_state"
         "$git_metrics"
-        "$status"
         "$cmd_duration"
+        "$status"
         "$character"
       ];
 
@@ -111,6 +111,7 @@ in
       status = {
         disabled = false;
 
+        format = "[\\($status\\)]($style)";
         symbol = "";
 
         pipestatus = true;
