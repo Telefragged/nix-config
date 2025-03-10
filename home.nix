@@ -1,4 +1,4 @@
-{ config, pkgs, ... }:
+{ config, pkgs, lib, ... }:
 let
   sources = import ./nix/sources.nix;
 
@@ -64,6 +64,68 @@ in
     '' + builtins.readFile ./init.lua;
   };
 
+  programs.starship = {
+    enable = true;
+
+    settings = {
+      add_newline = false;
+
+      format = lib.concatStrings [
+        "$username"
+        "$directory"
+        "$git_branch"
+        "$git_state"
+        "$git_metrics"
+        "$status"
+        "$cmd_duration"
+        "$character"
+      ];
+
+      follow_symlinks = false;
+
+      character = rec {
+        success_symbol = "\\$";
+        error_symbol = success_symbol;
+      };
+
+      cmd_duration.format = "[$duration]($style) ";
+
+      directory = {
+        format = "[$read_only]($read_only_style)[$path]($style) ";
+
+        style = "#6B8478";
+        truncation_symbol = "../";
+
+        read_only = "\(RO\)";
+        read_only_style = "bold red";
+      };
+
+      git_branch = {
+        format = "[$branch(:$remote_branch)]($style) ";
+
+        style = "#80BBB3";
+      };
+
+      git_metrics.disabled = false;
+
+      status = {
+        disabled = false;
+
+        symbol = "";
+
+        pipestatus = true;
+      };
+
+      username = {
+        style_user = "#DABC7F";
+        show_always = true;
+
+        format = "[$user]($style):";
+      };
+
+    };
+  };
+
   programs.tmux = {
     enable = true;
     extraConfig = ''
@@ -92,19 +154,8 @@ in
   programs.bash = {
     enable = true;
     bashrcExtra = ''
-      . ${pkgs.git}/share/bash-completion/completions/git-prompt.sh
+      . ~/.nix-profile/etc/profile.d/nix.sh
 
-      get_ps1() {
-        local RESETC="\[\033[0m\]"
-
-        local USERC="\[\033[38;2;128;187;179m\]"
-        local WDIRC="\[\033[38;2;107;132;120m\]"
-        local GITC="\[\033[38;2;219;188;127m\]"
-
-        echo "$USERC\u$RESETC:$WDIRC\w$GITC\$(__git_ps1 ' (%s)')$RESETC$ "
-      }
-
-      export PS1="$(get_ps1)"
       export EDITOR=nvim
       export PATH=$PATH:$HOME/.cargo/bin
     '';
