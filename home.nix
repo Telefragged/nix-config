@@ -103,7 +103,7 @@ in
       git_branch = {
         format = "[$branch(:$remote_branch)]($style) ";
 
-        style = "#80BBB3";
+        style = "#DBBC7F";
       };
 
       git_metrics.disabled = false;
@@ -117,7 +117,7 @@ in
       };
 
       username = {
-        style_user = "#DABC7F";
+        style_user = "#80BBB3";
         show_always = true;
 
         format = "[$user]($style):";
