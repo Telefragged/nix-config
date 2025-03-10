@@ -51,20 +51,6 @@ dapui.setup(nil)
 
 vim.keymap.set('n', '<leader>dd', dapui.toggle, { noremap = true, silent = true })
 
-require('copilot').setup({
-    suggestion = {
-        enabled = true,
-        auto_trigger = true,
-    },
-    panel = { enabled = false },
-})
-
-local copilot_suggestion = require('copilot.suggestion')
-
-vim.keymap.set('i', '<C-a>', function()
-    return copilot_suggestion.accept()
-end, { silent = true })
-
 require("lsp_signature").setup {}
 
 require("bufferline").setup {}
