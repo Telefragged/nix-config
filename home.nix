@@ -161,7 +161,7 @@ in
 
   programs.lsd = {
     enable = true;
-    enableAliases = true;
+    enableBashIntegration = true;
   };
 
   programs.git.enable = true;
