@@ -178,7 +178,6 @@ in
     deno
     nixd
     lua-language-server
-    nerdfonts
     nodePackages.vim-language-server
     # nodePackages.pyright
     nodejs
@@ -189,5 +188,8 @@ in
     marksman
     niv
     nixpkgs-fmt
+    nerd-fonts.iosevka
+    nerd-fonts.zed-mono
+    nerd-fonts.caskaydia-cove
   ];
 }
