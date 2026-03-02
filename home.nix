@@ -53,7 +53,7 @@ in
     vimAlias = true;
     plugins = import ./vim.nix { inherit pkgs sources; };
     extraConfig = builtins.readFile ./customRC.vim;
-    extraLuaConfig = ''
+    initLua = ''
       local codelldb_path = "${codelldb}"
       local liblldb_path = "${liblldb}"
     '' + builtins.readFile ./init.lua;
