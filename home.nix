@@ -332,7 +332,17 @@ in
     icons = "auto";
   };
 
-  programs.git.enable = true;
+  programs.git = {
+    enable = true;
+    signing.format = null;
+    settings = {
+      user = {
+        email = "vetle.braend@gmail.com";
+        name = "Vetle Brænd";
+      };
+      rebase.autoStash = true;
+    };
+  };
 
   home.packages = with pkgs; [
     nixd
