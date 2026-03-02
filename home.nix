@@ -188,6 +188,7 @@ in
     marksman
     niv
     nixpkgs-fmt
+    claude-code
     nerd-fonts.iosevka
     nerd-fonts.zed-mono
     nerd-fonts.caskaydia-cove
