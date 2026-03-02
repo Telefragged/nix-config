@@ -63,9 +63,10 @@ in
     enable = true;
 
     settings = {
-      add_newline = false;
+      add_newline = true;
 
       format = lib.concatStrings [
+        "$nix_shell"
         "$username"
         "$directory"
         "$git_branch"
@@ -102,6 +103,12 @@ in
       };
 
       git_metrics.disabled = false;
+
+      nix_shell = {
+        format = "[\\($state$name\\)]($style) ";
+        impure_msg = "";
+        pure_msg = "pure ";
+      };
 
       status = {
         disabled = false;
