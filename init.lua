@@ -342,3 +342,4 @@ require("codecompanion").setup({
 })
 
 
+vim.opt.lazyredraw = true -- Don't redraw screen during macros
