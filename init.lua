@@ -141,24 +141,6 @@ vim.lsp.enable('csharp_ls')
     offset_encoding = "utf-8",
 }
 
-require('rust-tools').setup {
-    tools = {
-        inlay_hints = {
-            auto = false,
-        },
-    },
-    dap = {
-        adapter = require('rust-tools.dap').get_codelldb_adapter(codelldb_path, liblldb_path),
-    },
-    server = {
-        settings = {
-            ["rust-analyzer"] = {
-                checkOnSave = {
-                    command = "clippy"
-                },
-            },
-        },
-    },
 vim.lsp.enable('fsautocomplete')
 vim.lsp.config['tinymist'] = {
     capabilities = capabilities,
@@ -166,6 +148,24 @@ vim.lsp.config['tinymist'] = {
 }
 vim.lsp.enable('tinymist')
 vim.lsp.enable('ts_ls')
+
+-- require('rustaceanvim').setup {
+--     tools = {
+--         inlay_hints = {
+--             auto = false,
+--         },
+--     },
+--     server = {
+--         settings = {
+--             ["rust-analyzer"] = {
+--                 checkOnSave = true,
+--                 check = {
+--                     command = "clippy",
+--                 },
+--             },
+--         },
+--     },
+-- }
 
 vim.cmd([[vnoremap <C-h> ""y:%s/<C-R>=escape(@", '/\')<CR>//g<Left><Left>]])
 
