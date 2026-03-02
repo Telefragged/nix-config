@@ -166,9 +166,10 @@ in
   programs.direnv.enable = true;
   programs.direnv.nix-direnv.enable = true;
 
-  programs.lsd = {
+  programs.eza = {
     enable = true;
     enableBashIntegration = true;
+    icons = "auto";
   };
 
   programs.git.enable = true;
