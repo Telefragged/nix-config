@@ -36,12 +36,14 @@ vim.api.nvim_create_autocmd('FileType', {
     command = 'setlocal commentstring=//\\ %s',
 })
 
-require('nvim-treesitter.configs').setup {
+require('nvim-treesitter.config').setup {
     highlight = {
         enable = true,
         additional_vim_regex_highlighting = false,
     },
 }
+
+vim.treesitter.language.register('wgsl', 'wesl')
 
 local dap = require('dap')
 vim.keymap.set('n', '<F9>', dap.toggle_breakpoint, { noremap = true, silent = true })
@@ -99,51 +101,45 @@ cmp.setup({
 
 local capabilities = require('cmp_nvim_lsp').default_capabilities(vim.lsp.protocol.make_client_capabilities())
 
-local lspconfig = require('lspconfig')
+vim.lsp.enable('pyright')
+vim.lsp.enable('nixd')
+vim.lsp.enable('vimls')
+vim.lsp.enable('marksman')
 
-lspconfig['pyright'].setup { capabilities = capabilities }
-lspconfig['nixd'].setup { capabilities = capabilities }
-lspconfig['vimls'].setup { capabilities = capabilities }
-lspconfig['marksman'].setup { capabilities = capabilities }
+-- local lua_settings = {
+--     Lua = {
+--         runtime = {
+--             -- Tell the language server which version of Lua you're using (most likely LuaJIT in the case of Neovim)
+--             version = 'LuaJIT',
+--         },
+--         diagnostics = {
+--             -- Get the language server to recognize the `vim` global
+--             globals = { 'vim' },
+--         },
+--         workspace = {
+--             -- Make the server aware of Neovim runtime files
+--             library = vim.api.nvim_get_runtime_file("", true),
+--         },
+--         -- Do not send telemetry data containing a randomized but unique identifier
+--         telemetry = {
+--             enable = false,
+--         },
+--     },
+-- }
 
-local lua_settings = {
-    Lua = {
-        runtime = {
-            -- Tell the language server which version of Lua you're using (most likely LuaJIT in the case of Neovim)
-            version = 'LuaJIT',
-        },
-        diagnostics = {
-            -- Get the language server to recognize the `vim` global
-            globals = { 'vim' },
-        },
-        workspace = {
-            -- Make the server aware of Neovim runtime files
-            library = vim.api.nvim_get_runtime_file("", true),
-        },
-        -- Do not send telemetry data containing a randomized but unique identifier
-        telemetry = {
-            enable = false,
-        },
-    },
-}
+vim.lsp.enable('lua_ls')
 
-lspconfig['lua_ls'].setup { settings = lua_settings, capabilities = capabilities }
-
-lspconfig['csharp_ls'].setup {
+vim.lsp.config['csharp_ls'] = {
     cmd = { "/home/vetle/.nix-profile/bin/CSharpLanguageServer" },
     filetypes = { "cs" },
-    root_dir = lspconfig.util.root_pattern("*.sln", "*.csproj", ".git"),
+    root_markers = { { "*.sln", "*.csproj" }, ".git" },
     capabilities = capabilities,
 }
+vim.lsp.enable('csharp_ls')
 
-
-lspconfig['fsautocomplete'].setup { capabilities = capabilities }
-lspconfig['tinymist'].setup {
     capabilities = capabilities,
     offset_encoding = "utf-8",
 }
-
-lspconfig['ts_ls'].setup { capabilities = capabilities }
 
 require('rust-tools').setup {
     tools = {
@@ -163,7 +159,13 @@ require('rust-tools').setup {
             },
         },
     },
+vim.lsp.enable('fsautocomplete')
+vim.lsp.config['tinymist'] = {
+    capabilities = capabilities,
+    offset_encoding = "utf-8",
 }
+vim.lsp.enable('tinymist')
+vim.lsp.enable('ts_ls')
 
 vim.cmd([[vnoremap <C-h> ""y:%s/<C-R>=escape(@", '/\')<CR>//g<Left><Left>]])
 
