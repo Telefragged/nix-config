@@ -136,18 +136,9 @@ vim.lsp.config['csharp_ls'] = {
     root_markers = { { "*.sln", "*.csproj" }, ".git" },
     capabilities = capabilities,
 }
+
 vim.lsp.enable('csharp_ls')
-
-    capabilities = capabilities,
-    offset_encoding = "utf-8",
-}
-
 vim.lsp.enable('fsautocomplete')
-vim.lsp.config['tinymist'] = {
-    capabilities = capabilities,
-    offset_encoding = "utf-8",
-}
-vim.lsp.enable('tinymist')
 vim.lsp.enable('ts_ls')
 
 -- require('rustaceanvim').setup {
@@ -285,62 +276,5 @@ end
 
 vim.keymap.set("", "<leader>e", toggle_lsp_lines, { noremap = true })
 vim.diagnostic.config({ virtual_lines = false })
-
--- require('avante_lib').load()
--- require('avante').setup {
---     provider = "ollama_qwen",
---     claude = {
---         model = "claude-3-5-sonnet-20241022",
---     },
---     vendors = {
---         ollama_deepseek = {
---             __inherited_from = "openai",
---             api_key_name = "",
---             endpoint = "http://127.0.0.1:11434/v1",
---             model = "deepseek-coder-v2:16b",
---             disable_tools = true, -- Open-source models often do not support tools.
---         },
---         ollama_qwen = {
---             __inherited_from = "openai",
---             api_key_name = "",
---             endpoint = "http://127.0.0.1:11434/v1",
---             model = "qwen3:8b",
---         },
---     },
-
---     -- ollama = {
---     --     endpoint = "http://localhost:11434",
---     --     model = "deepseek-coder-v2:16b"
---     -- },
---     disabled_tools = { "python" },
--- }
-
-require("codecompanion").setup({
-    adapters = {
-        ollama_qwen3 = function()
-            return require("codecompanion.adapters").extend("ollama", {
-                name = "ollama_qwen3 ",
-                schema = {
-                    model = {
-                        default = "qwen3:8b",
-                    },
-                    num_ctx = {
-                        default = 16384,
-                    },
-                    num_predict = {
-                        default = -1,
-                    },
-                },
-            })
-        end
-    },
-
-    strategies = {
-        chat = {
-            adapter = "ollama_qwen3"
-        },
-    }
-})
-
 
 vim.opt.lazyredraw = true -- Don't redraw screen during macros
