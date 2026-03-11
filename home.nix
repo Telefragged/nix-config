@@ -156,8 +156,6 @@ in
   programs.bash = {
     enable = true;
     bashrcExtra = ''
-      . ~/.nix-profile/etc/profile.d/nix.sh
-
       export EDITOR=nvim
       export PATH=$PATH:$HOME/.cargo/bin
     '';
@@ -175,11 +173,9 @@ in
   programs.git.enable = true;
 
   home.packages = with pkgs; [
-    deno
     nixd
     lua-language-server
     nodePackages.vim-language-server
-    # nodePackages.pyright
     nodejs
     ripgrep
     fd
