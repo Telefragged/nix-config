@@ -25,6 +25,43 @@ let
   fetch-deps-csharpls = pkgs.writeScriptBin "fetch-deps-csharpls" ''
     ${csharpls.passthru.fetch-deps}
   '';
+
+  claude = pkgs.writeScriptBin "claude" ''
+    claude_dir=$(pwd)
+
+    exec "${pkgs.bubblewrap}/bin/bwrap" \
+        --ro-bind /usr /usr \
+        --ro-bind /lib /lib \
+        --ro-bind /lib64 /lib64 \
+        --ro-bind /bin /bin \
+        --ro-bind /etc/resolv.conf /etc/resolv.conf \
+        --ro-bind /etc/hosts /etc/hosts \
+        --ro-bind /etc/ssl /etc/ssl \
+        --ro-bind /etc/ca-certificates /etc/ca-certificates \
+        --ro-bind /etc/passwd /etc/passwd \
+        --ro-bind /etc/group /etc/group \
+        --ro-bind "$HOME/.nix-channels" "$HOME/.nix-channels" \
+        --ro-bind "$HOME/.nix-defexpr" "$HOME/.nix-defexpr" \
+        --ro-bind "$HOME/.nix-profile" "$HOME/.nix-profile" \
+        --ro-bind "$HOME/.config/nix" "$HOME/.config/nix" \
+        --ro-bind "$HOME/.config/nixpkgs" "$HOME/.config/nixpkgs" \
+        --ro-bind "$HOME/.config/git" "$HOME/.config/git" \
+        --ro-bind "$HOME/.config/nvim" "$HOME/.config/nvim" \
+        --bind "/nix" "/nix" \
+        --bind "$HOME/.claude" "$HOME/.claude" \
+        --bind "$HOME/.claude.json" "$HOME/.claude.json" \
+        --bind "$HOME/.rustup" "$HOME/.rustup" \
+        --bind "$HOME/.cargo" "$HOME/.cargo" \
+        --bind "$claude_dir" "$claude_dir" \
+        --size 4294967296 --tmpfs /tmp \
+        --proc /proc \
+        --dev /dev \
+        --share-net \
+        --unshare-pid \
+        --die-with-parent \
+        -- \
+        "${pkgs.claude-code}"/bin/claude "$@"
+  '';
 in
 {
   # Home Manager needs a bit of information about you and the
@@ -184,7 +221,7 @@ in
     marksman
     niv
     nixpkgs-fmt
-    claude-code
+    claude
     nerd-fonts.iosevka
     nerd-fonts.zed-mono
     nerd-fonts.caskaydia-cove
