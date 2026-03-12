@@ -27,7 +27,12 @@ let
   '';
 
   claude = pkgs.writeScriptBin "claude" ''
-    claude_dir=$(pwd)
+    claude_dir=$(git rev-parse --show-toplevel 2>/dev/null || pwd)
+    if git_dir=$(git rev-parse --git-common-dir); then
+      git_flag="--bind $git_dir $git_dir"
+    else
+      git_flag=""
+    fi
 
     exec "${pkgs.bubblewrap}/bin/bwrap" \
         --ro-bind /usr /usr \
@@ -47,12 +52,14 @@ let
         --ro-bind "$HOME/.config/nixpkgs" "$HOME/.config/nixpkgs" \
         --ro-bind "$HOME/.config/git" "$HOME/.config/git" \
         --ro-bind "$HOME/.config/nvim" "$HOME/.config/nvim" \
+        --ro-bind "$HOME/.local/share/nvim" "$HOME/.local/share/nvim" \
         --bind "/nix" "/nix" \
         --bind "$HOME/.claude" "$HOME/.claude" \
         --bind "$HOME/.claude.json" "$HOME/.claude.json" \
         --bind "$HOME/.rustup" "$HOME/.rustup" \
         --bind "$HOME/.cargo" "$HOME/.cargo" \
         --bind "$claude_dir" "$claude_dir" \
+        $git_flag \
         --size 4294967296 --tmpfs /tmp \
         --proc /proc \
         --dev /dev \
@@ -61,6 +68,10 @@ let
         --die-with-parent \
         -- \
         "${pkgs.claude-code}"/bin/claude "$@"
+  '';
+
+  dclaude = pkgs.writeScriptBin "dclaude" ''
+    exec ${claude}/bin/claude --allow-dangerously-skip-permissions $@
   '';
 in
 {
@@ -222,6 +233,7 @@ in
     niv
     nixpkgs-fmt
     claude
+    dclaude
     nerd-fonts.iosevka
     nerd-fonts.zed-mono
     nerd-fonts.caskaydia-cove
