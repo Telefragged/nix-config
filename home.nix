@@ -26,7 +26,7 @@ let
     ${csharpls.passthru.fetch-deps}
   '';
 
-  claude = pkgs.writeScriptBin "claude" ''
+  claude = pkgs.writeShellScriptBin "claude" ''
     claude_dir=$(git rev-parse --show-toplevel 2>/dev/null || pwd)
     if git_dir=$(git rev-parse --git-common-dir); then
       git_flag="--bind $git_dir $git_dir"
