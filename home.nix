@@ -231,7 +231,7 @@ in
     csharpls
     marksman
     niv
-    nixpkgs-fmt
+    nixfmt
     claude
     dclaude
     nerd-fonts.iosevka
