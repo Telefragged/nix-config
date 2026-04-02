@@ -223,7 +223,7 @@ in
   home.packages = with pkgs; [
     nixd
     lua-language-server
-    nodePackages.vim-language-server
+    vim-language-server
     nodejs
     ripgrep
     fd
