@@ -9,16 +9,16 @@ let
 
   csharpls = pkgs.buildDotnetModule {
     pname = "csharp-language-server";
-    version = "0.13.0";
+    version = "0.22.0";
 
     src = sources.csharp-language-server;
 
-    dotnet-sdk = pkgs.dotnetCorePackages.sdk_8_0;
-    dotnet-runtime = pkgs.dotnetCorePackages.sdk_8_0;
+    dotnet-sdk = pkgs.dotnetCorePackages.sdk_10_0;
+    dotnet-runtime = pkgs.dotnetCorePackages.sdk_10_0;
 
     projectFile = "src/CSharpLanguageServer/CSharpLanguageServer.fsproj";
 
-    nugetDeps = ./deps.nix;
+    nugetDeps = ./deps.json;
   };
 
   # If we need to upgrade csharpls
