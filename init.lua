@@ -136,7 +136,7 @@ vim.lsp.config['lua_ls'] = {
 vim.lsp.enable('lua_ls')
 
 vim.lsp.config['csharp_ls'] = {
-    cmd = { "/home/vetle/.nix-profile/bin/CSharpLanguageServer" },
+    cmd = { "CSharpLanguageServer" },
     filetypes = { "cs" },
     root_markers = { { "*.sln", "*.csproj" }, ".git" },
     capabilities = capabilities,
