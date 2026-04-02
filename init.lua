@@ -102,8 +102,26 @@ cmp.setup({
 
 local capabilities = require('cmp_nvim_lsp').default_capabilities(vim.lsp.protocol.make_client_capabilities())
 
-vim.lsp.enable('pyright')
+vim.lsp.config['nixd'] = {
+    settings = {
+        nixd = {
+            formatting = { command = { "nixfmt" }, },
+            options = {
+                home_manager = {
+                    expr = [[
+                        (import <home-manager/modules> {
+                            configuration = ~/.config/home-manager/home.nix;
+                            pkgs = import <nixpkgs> {}; }
+                        ).options]],
+                },
+            },
+        },
+    },
+}
+
 vim.lsp.enable('nixd')
+
+vim.lsp.enable('pyright')
 vim.lsp.enable('vimls')
 vim.lsp.enable('marksman')
 
