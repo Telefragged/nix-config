@@ -104,7 +104,8 @@ in
     initLua = ''
       local codelldb_path = "${codelldb}"
       local liblldb_path = "${liblldb}"
-    '' + builtins.readFile ./init.lua;
+    ''
+    + builtins.readFile ./init.lua;
   };
 
   programs.starship = {
