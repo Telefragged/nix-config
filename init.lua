@@ -300,4 +300,6 @@ end
 vim.keymap.set("", "<leader>e", toggle_lsp_lines, { noremap = true })
 vim.diagnostic.config({ virtual_lines = false })
 
+-- Performance optimizations
 vim.opt.lazyredraw = true -- Don't redraw screen during macros
+vim.opt.hidden = true     -- Allow switching buffers without saving
