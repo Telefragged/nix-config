@@ -114,6 +114,9 @@ vim.lsp.config['nixd'] = {
                             pkgs = import <nixpkgs> {}; }
                         ).options]],
                 },
+                nixpkgs = {
+                    expr = "import <nixpkgs> { }",
+                },
             },
         },
     },
