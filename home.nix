@@ -2,6 +2,11 @@
 let
   sources = import ./nix/sources.nix;
 
+  # Pinned claude-code. nixpkgs lags upstream releases, so we vendor a copy of
+  # its native-binary derivation (./claude-code) and pin the version via
+  # ./claude-code/manifest.json — bump that file to update independently.
+  claude-code = pkgs.callPackage ./claude-code/package.nix { };
+
   vscode-lldb = pkgs.vscode-extensions.vadimcn.vscode-lldb;
 
   codelldb = "${vscode-lldb}/share/vscode/extensions/vadimcn.vscode-lldb/adapter/codelldb";
@@ -67,7 +72,7 @@ let
         --unshare-pid \
         --die-with-parent \
         -- \
-        "${pkgs.claude-code}"/bin/claude "$@"
+        "${claude-code}"/bin/claude "$@"
   '';
 
   dclaude = pkgs.writeScriptBin "dclaude" ''
