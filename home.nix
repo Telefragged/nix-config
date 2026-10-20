@@ -71,8 +71,8 @@ let
         --bind "$HOME/.cargo" "$HOME/.cargo" \
         --bind "$claude_dir" "$claude_dir" \
         $git_flag \
-        --size 4294967296 --tmpfs /tmp \
         $gh_flag \
+        --size 8589934592 --tmpfs /tmp \
         --proc /proc \
         --dev /dev \
         --share-net \
