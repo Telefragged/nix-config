@@ -72,7 +72,9 @@ let
         --ro-bind "$HOME/.config/git" "$HOME/.config/git" \
         --ro-bind "$HOME/.config/nvim" "$HOME/.config/nvim" \
         --ro-bind "$HOME/.local/share/nvim" "$HOME/.local/share/nvim" \
-        --bind "/nix" "/nix" \
+        --ro-bind "$HOME/.local/share/nit" "$HOME/.local/share/nit" \
+        --bind "$HOME/.local/share/nit/watch" "$HOME/.local/share/nit/watch" \
+        --ro-bind "/nix" "/nix" \
         --bind "$HOME/.claude" "$HOME/.claude" \
         --bind "$HOME/.claude.json" "$HOME/.claude.json" \
         --bind "$HOME/.rustup" "$HOME/.rustup" \
