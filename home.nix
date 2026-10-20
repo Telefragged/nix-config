@@ -45,6 +45,14 @@ let
       gh_flag=""
     fi
 
+    # Expose the Wayland socket so wl-copy/wl-paste work inside the sandbox
+    wayland_socket="$XDG_RUNTIME_DIR/$WAYLAND_DISPLAY"
+    if [ -n "$WAYLAND_DISPLAY" ] && [ -S "$wayland_socket" ]; then
+      wayland_flag="--bind $wayland_socket $wayland_socket"
+    else
+      wayland_flag=""
+    fi
+
     exec "${pkgs.bubblewrap}/bin/bwrap" \
         --ro-bind /usr /usr \
         --ro-bind /lib /lib \
@@ -72,6 +80,7 @@ let
         --bind "$claude_dir" "$claude_dir" \
         $git_flag \
         $gh_flag \
+        $wayland_flag \
         --size 8589934592 --tmpfs /tmp \
         --proc /proc \
         --dev /dev \
