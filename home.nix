@@ -39,6 +39,12 @@ let
       git_flag=""
     fi
 
+    if gh_token=$(gh auth token); then
+      gh_flag="--setenv GH_TOKEN $gh_token"
+    else
+      gh_flag=""
+    fi
+
     exec "${pkgs.bubblewrap}/bin/bwrap" \
         --ro-bind /usr /usr \
         --ro-bind /lib /lib \
@@ -66,6 +72,7 @@ let
         --bind "$claude_dir" "$claude_dir" \
         $git_flag \
         --size 4294967296 --tmpfs /tmp \
+        $gh_flag \
         --proc /proc \
         --dev /dev \
         --share-net \
