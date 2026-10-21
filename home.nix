@@ -53,6 +53,9 @@ let
       wayland_flag=""
     fi
 
+    profile_link=$(readlink "$HOME/.nix-profile")
+    profile_dir=$(dirname "$profile_link")
+
     exec "${pkgs.bubblewrap}/bin/bwrap" \
         --ro-bind /usr /usr \
         --ro-bind /lib /lib \
@@ -66,7 +69,8 @@ let
         --ro-bind /etc/group /etc/group \
         --ro-bind "$HOME/.nix-channels" "$HOME/.nix-channels" \
         --ro-bind "$HOME/.nix-defexpr" "$HOME/.nix-defexpr" \
-        --ro-bind "$HOME/.nix-profile" "$HOME/.nix-profile" \
+        --ro-bind "$profile_dir" "$profile_dir" \
+        --symlink "$profile_link" "$HOME/.nix-profile" \
         --ro-bind "$HOME/.config/nix" "$HOME/.config/nix" \
         --ro-bind "$HOME/.config/nixpkgs" "$HOME/.config/nixpkgs" \
         --ro-bind "$HOME/.config/git" "$HOME/.config/git" \
