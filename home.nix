@@ -224,6 +224,11 @@ in
       bind-key c new-window -c "#{pane_current_path}"
       bind-key C-c new-window
 
+      bind-key k select-pane -U
+      bind-key j select-pane -D
+      bind-key h select-pane -L
+      bind-key l select-pane -R
+
       set -g default-terminal "screen-256color"
       set-option -ga terminal-overrides ",*:Tc"
     '';
