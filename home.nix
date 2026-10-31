@@ -133,6 +133,9 @@ in
       local liblldb_path = "${liblldb}"
     ''
     + builtins.readFile ./init.lua;
+
+    withRuby = false;
+    withPython3 = false;
   };
 
   programs.starship = {
