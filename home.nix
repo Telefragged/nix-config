@@ -237,6 +237,23 @@ in
     '';
   };
 
+  programs.herdr = {
+    enable = true;
+    settings = {
+      onboarding = false;
+
+      theme = {
+        name = "gruvbox";
+        auto_switch = false;
+      };
+
+      ui = {
+        sound.enabled = false;
+        toast.delivery = "herdr";
+      };
+    };
+  };
+
   programs.bash = {
     enable = true;
     bashrcExtra = ''
