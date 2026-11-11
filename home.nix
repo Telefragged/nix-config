@@ -39,6 +39,15 @@ let
       git_flag=""
     fi
 
+    # From a linked worktree, also expose the main checkout, so Claude finds
+    # the CLAUDE.local.md there when walking up from a nested worktree.
+    main_dir=$(git worktree list --porcelain 2>/dev/null | sed -n '1s/^worktree //p')
+    if [ -n "$main_dir" ] && [ "$main_dir" != "$claude_dir" ]; then
+      main_flag="--bind $main_dir $main_dir"
+    else
+      main_flag=""
+    fi
+
     if gh_token=$(gh auth token); then
       gh_flag="--setenv GH_TOKEN $gh_token"
     else
@@ -83,6 +92,7 @@ let
         --bind "$HOME/.claude.json" "$HOME/.claude.json" \
         --bind "$HOME/.rustup" "$HOME/.rustup" \
         --bind "$HOME/.cargo" "$HOME/.cargo" \
+        $main_flag \
         --bind "$claude_dir" "$claude_dir" \
         $git_flag \
         $gh_flag \
@@ -100,6 +110,28 @@ let
   dclaude = pkgs.writeScriptBin "dclaude" ''
     exec ${claude}/bin/claude --allow-dangerously-skip-permissions $@
   '';
+
+  # herdr popup dialogs: ./herdr/<name>.sh with the shared ./herdr/dialog.sh in
+  # front. git-mito comes from PATH, since it's installed with `nix profile`
+  # rather than by this config.
+  herdr-dialog =
+    name: extraInputs:
+    pkgs.writeShellApplication {
+      name = "herdr-${name}";
+      runtimeInputs = [
+        pkgs.coreutils
+        pkgs.git
+      ]
+      ++ extraInputs;
+      text = builtins.readFile ./herdr/dialog.sh + builtins.readFile (./herdr + "/${name}.sh");
+    };
+
+  # Creates a worktree under <repo>/.worktrees, with git-mito when the repo has
+  # a git-mito base, and opens it in herdr.
+  herdr-new-worktree = herdr-dialog "new-worktree" [ ];
+
+  # Removes the current worktree and its branch, if it's clean and merged.
+  herdr-remove-worktree = herdr-dialog "remove-worktree" [ pkgs.jq ];
 in
 {
   # Home Manager needs a bit of information about you and the
@@ -250,6 +282,32 @@ in
       ui = {
         sound.enabled = false;
         toast.delivery = "herdr";
+      };
+
+      keys = {
+        # Moved off its default (prefix+shift+g) to make room for the action
+        # below, which uses git-mito when the repo has a git-mito base.
+        new_worktree = "prefix+alt+shift+g";
+        command = [
+          {
+            key = "prefix+shift+g";
+            type = "popup";
+            command = lib.getExe herdr-new-worktree;
+            description = "new worktree (git-mito when set up)";
+            # Same size as herdr's own new worktree dialog.
+            width = 68;
+            height = 12;
+          }
+          {
+            key = "prefix+shift+c";
+            type = "popup";
+            command = lib.getExe herdr-remove-worktree;
+            description = "remove worktree and branch";
+            # Same size as herdr's own remove worktree dialog.
+            width = 72;
+            height = 10;
+          }
+        ];
       };
     };
   };
