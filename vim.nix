@@ -1,4 +1,4 @@
-{ pkgs ? import <nixpkgs> { }, sources ? import ./nix/sources.nix }:
+{ pkgs ? import <nixpkgs> { }, sources ? import ./npins }:
 with pkgs;
 let
   neofsharp-vim = pkgs.vimUtils.buildVimPlugin {

@@ -1,6 +1,6 @@
 { pkgs, lib, ... }:
 let
-  sources = import ./nix/sources.nix;
+  sources = import ./npins;
 
   # Pinned claude-code. nixpkgs lags upstream releases, so we vendor a copy of
   # its native-binary derivation (./claude-code) and pin the version via
@@ -269,7 +269,7 @@ in
     fetch-deps-csharpls
     csharpls
     marksman
-    niv
+    npins
     nixfmt
     claude
     dclaude
