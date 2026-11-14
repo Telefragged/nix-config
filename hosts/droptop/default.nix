@@ -1,6 +1,6 @@
 # Configuration that only applies to droptop. Shared configuration lives in
 # ../../home.nix.
-{ lib, ... }:
+{ pkgs, lib, ... }:
 let
   # The Nvidia driver version must match the one the host kernel runs, so
   # ./nvidia/driver.json is generated from it by ./nvidia/update.sh — rerun that
@@ -23,5 +23,17 @@ in
   targets.genericLinux.gpu.nvidia = {
     enable = true;
     inherit (nvidia-driver) version sha256;
+  };
+
+  services.ollama = {
+    enable = true;
+
+    package = pkgs.ollama-cuda;
+
+    environmentVariables = {
+      OLLAMA_FLASH_ATTENTION = "1";
+      OLLAMA_KV_CACHE_TYPE = "q8_0";
+      OLLAMA_CONTEXT_LENGTH = "204800";
+    };
   };
 }
