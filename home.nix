@@ -333,6 +333,11 @@ in
     icons = "auto";
   };
 
+  programs.gh = {
+    enable = true;
+    settings.git_protocol = "ssh";
+  };
+
   targets.genericLinux.enable = true;
 
   home.packages = with pkgs; [
