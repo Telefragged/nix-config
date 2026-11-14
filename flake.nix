@@ -8,6 +8,10 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
+    # Not following our nixpkgs: nit pins its own Rust toolchain, and building
+    # against it reuses its tested (and already built) package.
+    nit.url = "github:Telefragged/nit";
+
     csharp-language-server = {
       url = "github:razzmatazz/csharp-language-server/main";
       flake = false;

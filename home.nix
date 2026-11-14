@@ -47,7 +47,10 @@ let
   herdr-remove-worktree = herdr-dialog "remove-worktree" [ pkgs.jq ];
 in
 {
-  imports = [ ./claude-code ];
+  imports = [
+    ./claude-code
+    inputs.nit.homeManagerModules.default
+  ];
 
   # Home Manager needs a bit of information about you and the
   # paths it should manage.
@@ -68,6 +71,9 @@ in
 
   # Let Home Manager install and manage itself.
   programs.home-manager.enable = true;
+
+  services.nit.enable = true;
+
   programs.neovim = {
     defaultEditor = true;
     enable = true;
