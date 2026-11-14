@@ -1,0 +1,19 @@
+# Keeps ~/.config/home-manager/hosts/droptop/nvidia/driver.json in sync with the Arch driver.
+# Install with:
+#   sudo install -Dm644 hosts/droptop/nvidia/nvidia-nix-driver.hook \
+#     /etc/pacman.d/hooks/nvidia-nix-driver.hook
+
+[Trigger]
+Operation = Install
+Operation = Upgrade
+Type = Package
+Target = nvidia-utils
+
+[Action]
+Description = Updating pinned Nvidia driver hash for home-manager...
+When = PostTransaction
+Depends = pacman
+Depends = util-linux
+# Run as the user: the updater writes into their repo and needs nix from their
+# profile, which a login shell puts on PATH.
+Exec = /usr/bin/runuser -l vetle -c '/home/vetle/.config/home-manager/hosts/droptop/nvidia/pacman-hook.sh'

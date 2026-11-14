@@ -330,6 +330,8 @@ in
     icons = "auto";
   };
 
+  targets.genericLinux.enable = true;
+
   home.packages = with pkgs; [
     nixd
     lua-language-server
