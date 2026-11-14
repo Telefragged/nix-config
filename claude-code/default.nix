@@ -1,7 +1,12 @@
 # Claude Code, installed through home-manager's module as `claude`, plus
 # `dclaude`, which runs it in a bubblewrap sandbox with permission bypass
-# allowed.
-{ config, pkgs, ... }:
+# allowed, and nit with its Claude Code plugin.
+{
+  config,
+  pkgs,
+  inputs,
+  ...
+}:
 let
   dclaude = pkgs.writeShellScriptBin "dclaude" ''
     claude_dir=$(git rev-parse --show-toplevel 2>/dev/null || pwd)
@@ -94,6 +99,8 @@ let
   };
 in
 {
+  imports = [ inputs.nit.homeManagerModules.default ];
+
   programs.claude-code = {
     enable = true;
     # nixpkgs lags upstream releases, so we vendor a copy of its native-binary
@@ -106,4 +113,6 @@ in
     dclaude
     update-claude-code
   ];
+
+  services.nit.enable = true;
 }
