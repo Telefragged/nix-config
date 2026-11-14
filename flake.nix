@@ -7,10 +7,19 @@
       url = "github:nix-community/home-manager";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+
+    csharp-language-server = {
+      url = "github:razzmatazz/csharp-language-server/main";
+      flake = false;
+    };
+    neofsharp-vim = {
+      url = "github:adelarsq/neofsharp.vim/master";
+      flake = false;
+    };
   };
 
   outputs =
-    { nixpkgs, home-manager, ... }:
+    { nixpkgs, home-manager, ... }@inputs:
     let
       system = "x86_64-linux";
       # Flakes evaluate purely, so ~/.config/nixpkgs/config.nix isn't read.
@@ -26,6 +35,7 @@
       homeConfigurations.vetle = home-manager.lib.homeManagerConfiguration {
         inherit pkgs;
         modules = [ ./home.nix ];
+        extraSpecialArgs = { inherit inputs; };
       };
     };
 }

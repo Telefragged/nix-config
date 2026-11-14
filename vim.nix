@@ -1,10 +1,10 @@
-{ pkgs ? import <nixpkgs> { }, sources ? import ./npins }:
+{ pkgs, inputs }:
 with pkgs;
 let
   neofsharp-vim = pkgs.vimUtils.buildVimPlugin {
     name = "neofsharp-vim";
     nativeBuildInputs = [ ];
-    src = sources.neofsharp-vim;
+    src = inputs.neofsharp-vim;
   };
 
   nvim-treesitter = pkgs.vimPlugins.nvim-treesitter.withPlugins (plugins:

@@ -1,7 +1,5 @@
-{ pkgs, lib, ... }:
+{ pkgs, lib, inputs, ... }:
 let
-  sources = import ./npins;
-
   # Pinned claude-code. nixpkgs lags upstream releases, so we vendor a copy of
   # its native-binary derivation (./claude-code) and pin the version via
   # ./claude-code/manifest.json — bump that file to update independently.
@@ -16,7 +14,7 @@ let
     pname = "csharp-language-server";
     version = "0.22.0";
 
-    src = sources.csharp-language-server;
+    src = inputs.csharp-language-server;
 
     dotnet-sdk = pkgs.dotnetCorePackages.sdk_10_0;
     dotnet-runtime = pkgs.dotnetCorePackages.sdk_10_0;
@@ -158,7 +156,7 @@ in
     enable = true;
     viAlias = true;
     vimAlias = true;
-    plugins = import ./vim.nix { inherit pkgs sources; };
+    plugins = import ./vim.nix { inherit pkgs inputs; };
     extraConfig = builtins.readFile ./customRC.vim;
     initLua = ''
       local codelldb_path = "${codelldb}"
@@ -354,7 +352,6 @@ in
     fetch-deps-csharpls
     csharpls
     marksman
-    npins
     nixfmt
     claude
     dclaude
