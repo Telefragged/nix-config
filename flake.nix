@@ -30,12 +30,20 @@
           nvidia.acceptLicense = true;
         };
       };
+
+      mkHome =
+        host:
+        home-manager.lib.homeManagerConfiguration {
+          inherit pkgs;
+          modules = [
+            ./home.nix
+            ./hosts/${host}
+          ];
+          extraSpecialArgs = { inherit inputs; };
+        };
     in
     {
-      homeConfigurations.vetle = home-manager.lib.homeManagerConfiguration {
-        inherit pkgs;
-        modules = [ ./home.nix ];
-        extraSpecialArgs = { inherit inputs; };
-      };
+      # `home-manager switch --flake .` picks the "$USER@$(hostname)" entry.
+      homeConfigurations."vetle@droptop" = mkHome "droptop";
     };
 }
