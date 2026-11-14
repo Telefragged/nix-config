@@ -156,14 +156,6 @@ vim.lsp.config['lua_ls'] = {
 
 vim.lsp.enable('lua_ls')
 
-vim.lsp.config['csharp_ls'] = {
-    cmd = { "CSharpLanguageServer" },
-    filetypes = { "cs" },
-    root_markers = { { "*.sln", "*.csproj" }, ".git" },
-    capabilities = capabilities,
-}
-
-vim.lsp.enable('csharp_ls')
 vim.lsp.enable('fsautocomplete')
 vim.lsp.enable('ts_ls')
 

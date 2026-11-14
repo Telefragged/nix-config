@@ -5,25 +5,6 @@ let
   codelldb = "${vscode-lldb}/share/vscode/extensions/vadimcn.vscode-lldb/adapter/codelldb";
   liblldb = "${vscode-lldb}/share/vscode/extensions/vadimcn.vscode-lldb/lldb/lib/liblldb.so";
 
-  csharpls = pkgs.buildDotnetModule {
-    pname = "csharp-language-server";
-    version = "0.22.0";
-
-    src = inputs.csharp-language-server;
-
-    dotnet-sdk = pkgs.dotnetCorePackages.sdk_10_0;
-    dotnet-runtime = pkgs.dotnetCorePackages.sdk_10_0;
-
-    projectFile = "src/CSharpLanguageServer/CSharpLanguageServer.fsproj";
-
-    nugetDeps = ./deps.json;
-  };
-
-  # If we need to upgrade csharpls
-  fetch-deps-csharpls = pkgs.writeScriptBin "fetch-deps-csharpls" ''
-    ${csharpls.passthru.fetch-deps}
-  '';
-
   # herdr popup dialogs: ./herdr/<name>.sh with the shared ./herdr/dialog.sh in
   # front. git-mito comes from PATH, since it's installed with `nix profile`
   # rather than by this config.
@@ -262,8 +243,6 @@ in
     nodejs
     ripgrep
     fd
-    fetch-deps-csharpls
-    csharpls
     marksman
     nixfmt
     nerd-fonts.iosevka

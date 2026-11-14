@@ -1,22 +1,5 @@
 {
   "nodes": {
-    "csharp-language-server": {
-      "flake": false,
-      "locked": {
-        "lastModified": 1774863725,
-        "narHash": "sha256-sXoCsORjh0BCkHRm+qxy57maSF0cr+A768lTXbuNTqo=",
-        "owner": "razzmatazz",
-        "repo": "csharp-language-server",
-        "rev": "22bb14541bd5898cb696cfbdf03b62f39f491942",
-        "type": "github"
-      },
-      "original": {
-        "owner": "razzmatazz",
-        "ref": "main",
-        "repo": "csharp-language-server",
-        "type": "github"
-      }
-    },
     "home-manager": {
       "inputs": {
         "nixpkgs": [
@@ -107,7 +90,6 @@
     },
     "root": {
       "inputs": {
-        "csharp-language-server": "csharp-language-server",
         "home-manager": "home-manager",
         "neofsharp-vim": "neofsharp-vim",
         "nit": "nit",

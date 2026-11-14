@@ -12,10 +12,6 @@
     # against it reuses its tested (and already built) package.
     nit.url = "github:Telefragged/nit";
 
-    csharp-language-server = {
-      url = "github:razzmatazz/csharp-language-server/main";
-      flake = false;
-    };
     neofsharp-vim = {
       url = "github:adelarsq/neofsharp.vim/master";
       flake = false;
