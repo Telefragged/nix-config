@@ -85,6 +85,9 @@ let
         --ro-bind "$HOME/.local/share/nvim" "$HOME/.local/share/nvim" \
         --ro-bind "$HOME/.local/share/nit" "$HOME/.local/share/nit" \
         --bind "$HOME/.local/share/nit/watch" "$HOME/.local/share/nit/watch" \
+        --ro-bind "$HOME/.local/share/noise" "$HOME/.local/share/noise" \
+        --ro-bind "$HOME/.config/noise" "$HOME/.config/noise" \
+        --bind "$HOME/.local/state/noise" "$HOME/.local/state/noise" \
         --ro-bind "/nix" "/nix" \
         --bind "$HOME/.claude" "$HOME/.claude" \
         --bind "$HOME/.claude.json" "$HOME/.claude.json" \
