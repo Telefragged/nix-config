@@ -60,11 +60,11 @@
         "rust-overlay": "rust-overlay"
       },
       "locked": {
-        "lastModified": 1794671269,
-        "narHash": "sha256-rwzuk5LFLXK9o/iWM/wuKkKNm+2CAyRXsDXm6tXmJLs=",
+        "lastModified": 1794674198,
+        "narHash": "sha256-uhsfMhCgXFRG/QGXZ4kVGBuo5iKoyR2zgZDZPwF5xug=",
         "owner": "Telefragged",
         "repo": "nit",
-        "rev": "8b3ebb69d153a89ae24596f1fd6d1476f3ea844e",
+        "rev": "145a8e35d1fe5d152cef7223e184a208b07dcc2a",
         "type": "github"
       },
       "original": {
