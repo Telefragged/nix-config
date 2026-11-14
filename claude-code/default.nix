@@ -83,15 +83,27 @@ let
         --allow-dangerously-skip-permissions "$@"
   '';
 
+  update-claude-code = pkgs.writeShellApplication {
+    name = "update-claude-code";
+    runtimeInputs = [
+      pkgs.coreutils
+      pkgs.curl
+      pkgs.jq
+    ];
+    text = builtins.readFile ./update.sh;
+  };
 in
 {
   programs.claude-code = {
     enable = true;
     # nixpkgs lags upstream releases, so we vendor a copy of its native-binary
     # derivation (./package.nix) and pin the version via ./manifest.json —
-    # bump that file with ./update.sh to update independently.
+    # bump it with `update-claude-code` to update independently.
     package = pkgs.callPackage ./package.nix { };
   };
 
-  home.packages = [ dclaude ];
+  home.packages = [
+    dclaude
+    update-claude-code
+  ];
 }
