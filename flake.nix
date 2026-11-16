@@ -51,5 +51,6 @@
     {
       # `home-manager switch --flake .` picks the "$USER@$(hostname)" entry.
       homeConfigurations."vetle@droptop" = mkHome "droptop";
+      homeConfigurations."vetle@vetle-Precision-3630-Tower" = mkHome "work";
     };
 }
