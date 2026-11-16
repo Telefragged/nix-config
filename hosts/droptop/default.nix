@@ -8,17 +8,7 @@ let
   nvidia-driver = lib.importJSON ./nvidia/driver.json;
 in
 {
-  programs.git = {
-    enable = true;
-    signing.format = null;
-    settings = {
-      user = {
-        email = "vetle.braend@gmail.com";
-        name = "Vetle Brænd";
-      };
-      rebase.autoStash = true;
-    };
-  };
+  programs.git.settings.user.email = "vetle.braend@gmail.com";
 
   targets.genericLinux.gpu.nvidia = {
     enable = true;

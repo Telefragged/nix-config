@@ -145,6 +145,15 @@
     icons = "auto";
   };
 
+  programs.git = {
+    enable = true;
+    signing.format = null;
+    settings = {
+      user.name = "Vetle Brænd";
+      rebase.autoStash = true;
+    };
+  };
+
   programs.gh = {
     enable = true;
     settings.git_protocol = "ssh";
