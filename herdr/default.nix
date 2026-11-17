@@ -17,7 +17,8 @@ let
     };
 
   # Creates a worktree under <repo>/.worktrees, with git-mito when the repo has
-  # a git-mito base, and opens it in herdr.
+  # a git-mito base, sets it to track the main checkout's branch, and opens it
+  # in herdr.
   herdr-new-worktree = herdr-dialog "new-worktree" [ ];
 
   # Removes the current worktree and its branch, if it's clean and merged.

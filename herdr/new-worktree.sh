@@ -13,7 +13,7 @@ set_slug() {
   slug=${slug:-worktree}
 }
 
-main='' branch='' cursor=0 creating='' error='' add=(git worktree add)
+main='' branch='' cursor=0 creating='' error='' track='' add=(git worktree add)
 
 render() {
   local width=$((cols - 2)) offset=0 shown=''
@@ -67,6 +67,12 @@ submit() {
     set_error "$out"
     return
   fi
+  # Track the main checkout's branch, so herdr's sidebar shows how far ahead
+  # and behind it the worktree is. Not worth failing over once it's created.
+  if [ -n "$track" ] &&
+    ! git rev-parse -q --verify "$branch@{upstream}" >/dev/null 2>&1; then
+    git branch -q --set-upstream-to="$track" "$branch" >/dev/null 2>&1 || true
+  fi
   if ! out=$("${HERDR_BIN_PATH:-herdr}" worktree open --cwd "$main" \
     --path "$path" --focus 2>&1); then
     creating=''
@@ -94,6 +100,13 @@ cd "$main"
 # `git mito update` locks the base it creates with this reason.
 if [[ $worktrees == *$'\nlocked managed by git-mito'* ]]; then
   add=(git mito add)
+fi
+
+# What new branches track: the main checkout's branch's upstream, else the
+# branch itself, the same targets remove-worktree.sh checks for a merge.
+if main_branch=$(git symbolic-ref --short -q HEAD); then
+  track=$(git rev-parse --abbrev-ref -q "$main_branch@{upstream}" 2>/dev/null) ||
+    track=$main_branch
 fi
 
 while :; do
