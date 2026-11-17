@@ -27,6 +27,11 @@ in
 {
   programs.herdr = {
     enable = true;
+    # herdr hides git_status (ahead and behind counts) on the worktree rows it
+    # nests under their repo; show it there too. Drop once upstream does.
+    package = pkgs.herdr.overrideAttrs (old: {
+      patches = (old.patches or [ ]) ++ [ ./nested-git-status.patch ];
+    });
     settings = {
       onboarding = false;
 
