@@ -1,21 +1,5 @@
 {
   "nodes": {
-    "cursor-plugins": {
-      "flake": false,
-      "locked": {
-        "lastModified": 1795004676,
-        "narHash": "sha256-N7HTgShoNUOQ0N5EDOrAL0BN5f3Vg25ypqDFpJC9x+E=",
-        "owner": "cursor",
-        "repo": "plugins",
-        "rev": "35a90942a7f02e1ebbc2443643179815f2147954",
-        "type": "github"
-      },
-      "original": {
-        "owner": "cursor",
-        "repo": "plugins",
-        "type": "github"
-      }
-    },
     "home-manager": {
       "inputs": {
         "nixpkgs": [
@@ -106,7 +90,6 @@
     },
     "root": {
       "inputs": {
-        "cursor-plugins": "cursor-plugins",
         "home-manager": "home-manager",
         "neofsharp-vim": "neofsharp-vim",
         "nit": "nit",

@@ -10,11 +10,6 @@
 
     nit.url = "github:Telefragged/nit";
 
-    cursor-plugins = {
-      url = "github:cursor/plugins";
-      flake = false;
-    };
-
     neofsharp-vim = {
       url = "github:adelarsq/neofsharp.vim/master";
       flake = false;

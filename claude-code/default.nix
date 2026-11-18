@@ -6,16 +6,8 @@
   ...
 }:
 let
-  pstack = "${inputs.cursor-plugins}/pstack";
-  pstackSkills = [
-    "no-comments"
-    "architect"
-    "why"
-    "principle-fix-root-causes"
-    "principle-redesign-from-first-principles"
-    "bro"
-  ];
-  pstackAgents = [ "comment-sicko" ];
+  skillDirs = lib.filterAttrs (_: type: type == "directory") (builtins.readDir ./skills);
+  agentFiles = lib.filterAttrs (file: _: lib.hasSuffix ".md" file) (builtins.readDir ./agents);
 
   dclaude = pkgs.writeShellScriptBin "dclaude" ''
     claude_dir=$(git rev-parse --show-toplevel 2>/dev/null || pwd)
@@ -115,8 +107,10 @@ in
       manifest = lib.importJSON ./manifest.zst.json;
     };
     context = ./context.md;
-    skills = lib.genAttrs pstackSkills (name: "${pstack}/skills/${name}");
-    agents = lib.genAttrs pstackAgents (name: "${pstack}/agents/${name}.md");
+    skills = lib.mapAttrs (name: _: ./skills/${name}) skillDirs;
+    agents = lib.mapAttrs' (
+      file: _: lib.nameValuePair (lib.removeSuffix ".md" file) ./agents/${file}
+    ) agentFiles;
   };
 
   home.packages = [
