@@ -1,30 +1,8 @@
 { pkgs, lib, ... }:
-let
-  # herdr popup dialogs: ./herdr/<name>.sh with the shared ./herdr/dialog.sh in
-  # front. git-mito comes from PATH, since it's installed with `nix profile`
-  # rather than by this config.
-  herdr-dialog =
-    name: extraInputs:
-    pkgs.writeShellApplication {
-      name = "herdr-${name}";
-      runtimeInputs = [
-        pkgs.coreutils
-        pkgs.git
-      ]
-      ++ extraInputs;
-      text = builtins.readFile ./herdr/dialog.sh + builtins.readFile (./herdr + "/${name}.sh");
-    };
-
-  # Creates a worktree under <repo>/.worktrees, with git-mito when the repo has
-  # a git-mito base, and opens it in herdr.
-  herdr-new-worktree = herdr-dialog "new-worktree" [ ];
-
-  # Removes the current worktree and its branch, if it's clean and merged.
-  herdr-remove-worktree = herdr-dialog "remove-worktree" [ pkgs.jq ];
-in
 {
   imports = [
     ./claude-code
+    ./herdr
     ./neovim
   ];
 
@@ -145,49 +123,6 @@ in
       set -g default-terminal "screen-256color"
       set-option -ga terminal-overrides ",*:Tc"
     '';
-  };
-
-  programs.herdr = {
-    enable = true;
-    settings = {
-      onboarding = false;
-
-      theme = {
-        name = "gruvbox";
-        auto_switch = false;
-      };
-
-      ui = {
-        sound.enabled = false;
-        toast.delivery = "herdr";
-      };
-
-      keys = {
-        # Moved off its default (prefix+shift+g) to make room for the action
-        # below, which uses git-mito when the repo has a git-mito base.
-        new_worktree = "prefix+alt+shift+g";
-        command = [
-          {
-            key = "prefix+shift+g";
-            type = "popup";
-            command = lib.getExe herdr-new-worktree;
-            description = "new worktree (git-mito when set up)";
-            # Same size as herdr's own new worktree dialog.
-            width = 68;
-            height = 12;
-          }
-          {
-            key = "prefix+shift+c";
-            type = "popup";
-            command = lib.getExe herdr-remove-worktree;
-            description = "remove worktree and branch";
-            # Same size as herdr's own remove worktree dialog.
-            width = 72;
-            height = 10;
-          }
-        ];
-      };
-    };
   };
 
   programs.bash = {
