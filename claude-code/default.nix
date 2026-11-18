@@ -107,6 +107,7 @@ in
     # derivation (./package.nix) and pin the version via ./manifest.json —
     # bump it with `update-claude-code` to update independently.
     package = pkgs.callPackage ./package.nix { };
+    context = ./context.md;
   };
 
   home.packages = [
