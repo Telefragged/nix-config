@@ -1,13 +1,25 @@
 # Claude Code, installed through home-manager's module as `claude`, plus
 # `dclaude`, which runs it in a bubblewrap sandbox with permission bypass
-# allowed, and nit with its Claude Code plugin.
+# allowed, nit with its Claude Code plugin, and skills and agents from
+# pstack (github:cursor/plugins).
 {
   config,
+  lib,
   pkgs,
   inputs,
   ...
 }:
 let
+  pstack = "${inputs.cursor-plugins}/pstack";
+  pstackSkills = [
+    "no-comments"
+    "architect"
+    "why"
+    "principle-fix-root-causes"
+    "principle-redesign-from-first-principles"
+  ];
+  pstackAgents = [ "comment-sicko" ];
+
   dclaude = pkgs.writeShellScriptBin "dclaude" ''
     claude_dir=$(git rev-parse --show-toplevel 2>/dev/null || pwd)
     if git_dir=$(git rev-parse --git-common-dir); then
@@ -108,6 +120,8 @@ in
     # bump it with `update-claude-code` to update independently.
     package = pkgs.callPackage ./package.nix { };
     context = ./context.md;
+    skills = lib.genAttrs pstackSkills (name: "${pstack}/skills/${name}");
+    agents = lib.genAttrs pstackAgents (name: "${pstack}/agents/${name}.md");
   };
 
   home.packages = [
