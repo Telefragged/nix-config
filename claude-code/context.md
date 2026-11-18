@@ -33,3 +33,11 @@ A commit subject is an imperative, and its actor is the author of the change. So
 
 No rhetorical openers or aphorisms, such as "Only a flag, never a path:". The rule covers code comments, doc-comments, commit messages, PR bodies, nit replies and chat. Fix such wording in any file you touch.
 
+Write every commit message and nit reply to a file first, and check the file before you use it:
+
+```sh
+grep -nwiE 'asks?|asked|says?|said|tells?|told|names?|named|reads?|knows?|wants?|expects?|decides?|means?|holds?|carr(y|ies|ied)|calls?|called|stated?|states' <file>
+```
+
+For each hit, either the subject of the verb is a person, or you rewrite the sentence with a term from the table. Then commit with `git commit -F <file>`, or send with `nit comment -F <file>`.
+
