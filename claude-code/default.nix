@@ -17,6 +17,7 @@ let
     "why"
     "principle-fix-root-causes"
     "principle-redesign-from-first-principles"
+    "bro"
   ];
   pstackAgents = [ "comment-sicko" ];
 
