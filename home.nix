@@ -1,10 +1,5 @@
-{ pkgs, lib, inputs, ... }:
+{ pkgs, lib, ... }:
 let
-  vscode-lldb = pkgs.vscode-extensions.vadimcn.vscode-lldb;
-
-  codelldb = "${vscode-lldb}/share/vscode/extensions/vadimcn.vscode-lldb/adapter/codelldb";
-  liblldb = "${vscode-lldb}/share/vscode/extensions/vadimcn.vscode-lldb/lldb/lib/liblldb.so";
-
   # herdr popup dialogs: ./herdr/<name>.sh with the shared ./herdr/dialog.sh in
   # front. git-mito comes from PATH, since it's installed with `nix profile`
   # rather than by this config.
@@ -28,7 +23,10 @@ let
   herdr-remove-worktree = herdr-dialog "remove-worktree" [ pkgs.jq ];
 in
 {
-  imports = [ ./claude-code ];
+  imports = [
+    ./claude-code
+    ./neovim
+  ];
 
   # Home Manager needs a bit of information about you and the
   # paths it should manage.
@@ -49,23 +47,6 @@ in
 
   # Let Home Manager install and manage itself.
   programs.home-manager.enable = true;
-
-  programs.neovim = {
-    defaultEditor = true;
-    enable = true;
-    viAlias = true;
-    vimAlias = true;
-    plugins = import ./vim.nix { inherit pkgs inputs; };
-    extraConfig = builtins.readFile ./customRC.vim;
-    initLua = ''
-      local codelldb_path = "${codelldb}"
-      local liblldb_path = "${liblldb}"
-    ''
-    + builtins.readFile ./init.lua;
-
-    withRuby = false;
-    withPython3 = false;
-  };
 
   programs.starship = {
     enable = true;
