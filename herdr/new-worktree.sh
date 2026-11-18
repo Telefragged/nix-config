@@ -1,9 +1,3 @@
-# herdr popup action: herdr's "new worktree" dialog, except the worktree goes
-# under <repo>/.worktrees/, made with git-mito when the repo has a git-mito
-# base and with plain `git worktree add` otherwise.
-
-# herdr's branch_to_path_slug: lowercase ASCII alphanumerics, every other run
-# of characters becomes one dash.
 set_slug() {
   slug=${1,,}
   slug=${slug//[^a-z0-9]/-}
@@ -13,7 +7,7 @@ set_slug() {
   slug=${slug:-worktree}
 }
 
-main='' branch='' cursor=0 creating='' error='' track='' add=(git worktree add)
+main='' branch='' cursor=0 creating='' error='' targets=() add=(git worktree add)
 
 render() {
   local width=$((cols - 2)) offset=0 shown=''
@@ -42,6 +36,12 @@ render() {
   [ -n "$creating" ] || printf '\e[4;%dH\e[?25h' "$((2 + cursor - offset))"
 }
 
+best_effort_track_main_branch() {
+  [ ${#targets[@]} -gt 0 ] || return 0
+  ! git rev-parse -q --verify "$branch@{upstream}" >/dev/null 2>&1 || return 0
+  git branch -q --set-upstream-to="${targets[-1]}" "$branch" >/dev/null 2>&1 || true
+}
+
 submit() {
   if [ -z "$branch" ]; then
     error="enter a branch name"
@@ -53,7 +53,6 @@ submit() {
   fi
   set_slug "$branch"
   local path="$main/.worktrees/$slug" out add_args
-  # Same as herdr's built-in: check out the branch if it exists, else create it.
   if git show-ref --verify --quiet "refs/heads/$branch"; then
     add_args=("$path" "$branch")
   else
@@ -67,12 +66,7 @@ submit() {
     set_error "$out"
     return
   fi
-  # Track the main checkout's branch, so herdr's sidebar shows how far ahead
-  # and behind it the worktree is. Not worth failing over once it's created.
-  if [ -n "$track" ] &&
-    ! git rev-parse -q --verify "$branch@{upstream}" >/dev/null 2>&1; then
-    git branch -q --set-upstream-to="$track" "$branch" >/dev/null 2>&1 || true
-  fi
+  best_effort_track_main_branch
   if ! out=$("${HERDR_BIN_PATH:-herdr}" worktree open --cwd "$main" \
     --path "$path" --focus 2>&1); then
     creating=''
@@ -82,9 +76,6 @@ submit() {
   exit 0
 }
 
-# Work from the main worktree, as herdr's built-in does: new branches start at
-# its HEAD, and herdr opens worktrees from the repo's parent workspace. The
-# first entry is always the main worktree, even when run from a linked one.
 cd "${HERDR_ACTIVE_PANE_CWD:-$PWD}"
 if ! worktrees=$(git worktree list --porcelain 2>/dev/null); then
   error="not inside a git repository"
@@ -102,12 +93,7 @@ if [[ $worktrees == *$'\nlocked managed by git-mito'* ]]; then
   add=(git mito add)
 fi
 
-# What new branches track: the main checkout's branch's upstream, else the
-# branch itself, the same targets remove-worktree.sh checks for a merge.
-if main_branch=$(git symbolic-ref --short -q HEAD); then
-  track=$(git rev-parse --abbrev-ref -q "$main_branch@{upstream}" 2>/dev/null) ||
-    track=$main_branch
-fi
+set_merge_targets
 
 while :; do
   render

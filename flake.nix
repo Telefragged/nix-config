@@ -8,11 +8,8 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
-    # Not following our nixpkgs: nit pins its own Rust toolchain, and building
-    # against it reuses its tested (and already built) package.
     nit.url = "github:Telefragged/nit";
 
-    # Flake inputs fetch whole repositories; `dir` only selects a flake.nix.
     cursor-plugins = {
       url = "github:cursor/plugins";
       flake = false;

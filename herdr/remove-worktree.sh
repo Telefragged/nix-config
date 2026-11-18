@@ -1,8 +1,3 @@
-# herdr popup action: remove the current linked worktree and its branch, then
-# close its herdr workspace. Enter only removes a clean worktree whose branch
-# is merged into the main checkout's branch or its upstream; D removes it
-# anyway.
-
 wt='' branch='' workspace='' mito='' targets=()
 fatal='' checking=1 removing='' error='' changes='' merged_into=''
 
@@ -78,12 +73,8 @@ render() {
   fi
 }
 
-# Count uncommitted changes (untracked files too, not ignored ones), and find
-# a target the branch is merged into: either the branch is in its history, or
-# merging the branch would change nothing, which covers squash and rebase
-# merges as long as the target hasn't edited the same lines since.
-check() {
-  local out lines t tree
+count_changes() {
+  local out lines
   if ! out=$(git -C "$wt" status --porcelain 2>&1); then
     set_error "$out"
     changes='?'
@@ -91,14 +82,20 @@ check() {
   fi
   mapfile -t lines < <(printf '%s' "$out")
   changes=${#lines[@]}
+}
+
+merge_is_noop() {
+  local target=$1 source=$2 tree
+  tree=$(git merge-tree --write-tree "$target" "$source" 2>/dev/null) &&
+    [ "${tree%%$'\n'*}" = "$(git rev-parse "$target^{tree}")" ]
+}
+
+find_merge_target() {
+  local t
   [ -n "$branch" ] || return 0
   for t in "${targets[@]}"; do
-    if git merge-base --is-ancestor "$branch" "$t" 2>/dev/null; then
-      merged_into=$t
-      return
-    fi
-    if tree=$(git merge-tree --write-tree "$t" "$branch" 2>/dev/null) &&
-      [ "${tree%%$'\n'*}" = "$(git rev-parse "$t^{tree}")" ]; then
+    if git merge-base --is-ancestor "$branch" "$t" 2>/dev/null ||
+      merge_is_noop "$t" "$branch"; then
       merged_into=$t
       return
     fi
@@ -128,7 +125,6 @@ remove() {
   exit 0
 }
 
-# Show $1 instead of the dialog and wait for a key.
 fail() {
   fatal=$1
   render
@@ -151,14 +147,8 @@ entry=${entry%%$'\n\n'*}
 [[ $worktrees != *$'\nlocked managed by git-mito'* ]] || mito=1
 cd "$main"
 
-if main_branch=$(git symbolic-ref --short -q HEAD); then
-  targets=("$main_branch")
-  if upstream=$(git rev-parse --abbrev-ref -q "$main_branch@{upstream}" 2>/dev/null); then
-    targets+=("$upstream")
-  fi
-fi
+set_merge_targets
 
-# The herdr workspace showing this worktree, if it's open.
 if out=$("${HERDR_BIN_PATH:-herdr}" worktree list --cwd "$main" 2>/dev/null); then
   workspace=$(jq -r --arg path "$wt" \
     '.result.worktrees[] | select(.path == $path) | .open_workspace_id // empty' \
@@ -166,7 +156,8 @@ if out=$("${HERDR_BIN_PATH:-herdr}" worktree list --cwd "$main" 2>/dev/null); th
 fi
 
 render
-check
+count_changes
+find_merge_target
 checking=''
 
 while :; do

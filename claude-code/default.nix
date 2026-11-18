@@ -1,7 +1,3 @@
-# Claude Code, installed through home-manager's module as `claude`, plus
-# `dclaude`, which runs it in a bubblewrap sandbox with permission bypass
-# allowed, nit with its Claude Code plugin, and skills and agents from
-# pstack (github:cursor/plugins).
 {
   config,
   lib,
@@ -44,7 +40,6 @@ let
       gh_flag=""
     fi
 
-    # Expose the Wayland socket so wl-copy/wl-paste work inside the sandbox
     wayland_socket="$XDG_RUNTIME_DIR/$WAYLAND_DISPLAY"
     if [ -n "$WAYLAND_DISPLAY" ] && [ -S "$wayland_socket" ]; then
       wayland_flag="--bind $wayland_socket $wayland_socket"
@@ -116,10 +111,9 @@ in
 
   programs.claude-code = {
     enable = true;
-    # nixpkgs lags upstream releases, so we vendor a copy of its native-binary
-    # derivation (./package.nix) and pin the version via ./manifest.json —
-    # bump it with `update-claude-code` to update independently.
-    package = pkgs.callPackage ./package.nix { };
+    package = pkgs.claude-code.override {
+      manifest = lib.importJSON ./manifest.zst.json;
+    };
     context = ./context.md;
     skills = lib.genAttrs pstackSkills (name: "${pstack}/skills/${name}");
     agents = lib.genAttrs pstackAgents (name: "${pstack}/agents/${name}.md");

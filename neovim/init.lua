@@ -6,11 +6,6 @@ vim.opt.cursorline = true
 
 vim.opt.signcolumn = "yes"
 
--- vim.keymap.set({'n', 'i', 'v'}, '<Up>', '<Nop>', { noremap = true, silent = true })
--- vim.keymap.set({'n', 'i', 'v'}, '<Down>', '<Nop>', { noremap = true, silent = true })
--- vim.keymap.set({'n', 'i', 'v'}, '<Left>', '<Nop>', { noremap = true, silent = true })
--- vim.keymap.set({'n', 'i', 'v'}, '<Right>', '<Nop>', { noremap = true, silent = true })
-
 vim.keymap.set({ 'n', 'v' }, '<C-Up>', '<C-u>zz', { noremap = true, silent = true })
 vim.keymap.set({ 'n', 'v' }, '<C-Down>', '<C-d>zz', { noremap = true, silent = true })
 vim.keymap.set({ 'n', 'v' }, '<C-k>', '<C-u>zz', { noremap = true, silent = true })
@@ -86,7 +81,7 @@ cmp.setup({
         ['<C-b>'] = cmp.mapping(cmp.mapping.scroll_docs(-4), { 'i', 'c' }),
         ['<C-f>'] = cmp.mapping(cmp.mapping.scroll_docs(4), { 'i', 'c' }),
         ['<C-Space>'] = cmp.mapping(cmp.mapping.complete(), { 'i', 'c' }),
-        ['<C-y>'] = cmp.config.disable, -- Specify `cmp.config.disable` if you want to remove the default `<C-y>` mapping.
+        ['<C-y>'] = cmp.config.disable,
         ['<C-e>'] = cmp.config.disable,
         ['<CR>'] = cmp.mapping.confirm({
             behavior = cmp.ConfirmBehavior.Replace,
@@ -131,18 +126,14 @@ vim.lsp.enable('marksman')
 local lua_settings = {
     Lua = {
         runtime = {
-            -- Tell the language server which version of Lua you're using (most likely LuaJIT in the case of Neovim)
             version = 'LuaJIT',
         },
         diagnostics = {
-            -- Get the language server to recognize the `vim` global
             globals = { 'vim' },
         },
         workspace = {
-            -- Make the server aware of Neovim runtime files
             library = vim.api.nvim_get_runtime_file("lua", true),
         },
-        -- Do not send telemetry data containing a randomized but unique identifier
         telemetry = {
             enable = false,
         },
@@ -158,24 +149,6 @@ vim.lsp.enable('lua_ls')
 
 vim.lsp.enable('fsautocomplete')
 vim.lsp.enable('ts_ls')
-
--- require('rustaceanvim').setup {
---     tools = {
---         inlay_hints = {
---             auto = false,
---         },
---     },
---     server = {
---         settings = {
---             ["rust-analyzer"] = {
---                 checkOnSave = true,
---                 check = {
---                     command = "clippy",
---                 },
---             },
---         },
---     },
--- }
 
 vim.cmd([[vnoremap <C-h> ""y:%s/<C-R>=escape(@", '/\')<CR>//g<Left><Left>]])
 
@@ -208,8 +181,8 @@ vim.api.nvim_command(
 )
 
 require('bufdel').setup {
-    next = 'tabs', -- or 'cycle, 'alternate'
-    quit = false,  -- quit Neovim when last buffer is closed
+    next = 'tabs',
+    quit = false,
 }
 
 vim.keymap.set('n', '<leader>w', ':BufDel<cr>', { noremap = true, silent = true })
@@ -252,7 +225,6 @@ vim.keymap.set("n", "<leader>fr", "<cmd>Telescope harpoon marks<cr>",
 
 require('nvim-surround').setup {}
 
--- Enable document highlight on hover for lsp clients that support it
 vim.api.nvim_create_autocmd('LspAttach', {
     callback = function(args)
         local bufnr = args.buf
@@ -295,6 +267,5 @@ end
 vim.keymap.set("", "<leader>e", toggle_lsp_lines, { noremap = true })
 vim.diagnostic.config({ virtual_lines = false })
 
--- Performance optimizations
-vim.opt.lazyredraw = true -- Don't redraw screen during macros
-vim.opt.hidden = true     -- Allow switching buffers without saving
+vim.opt.lazyredraw = true
+vim.opt.hidden = true

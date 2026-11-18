@@ -1,8 +1,4 @@
 #!/usr/bin/env bash
-# Regenerates nvidia/driver.json from the driver version the host kernel is
-# currently running, so targets.genericLinux.gpu.nvidia stays in sync with it.
-#
-# Usage: ./nvidia/update.sh [version]
 
 set -euo pipefail
 
@@ -45,8 +41,6 @@ if ! grep -Eqx "$version_re" <<<"$version"; then
   exit 1
 fi
 
-# Prefetching downloads the whole ~400MB installer, so don't redo it when the
-# pinned version is already the requested one (e.g. an Arch pkgrel-only bump).
 if [[ -e driver.json ]] && [[ "$(jq -r .version driver.json)" == "$version" ]]; then
   echo "nvidia/driver.json: already at $version, nothing to do" >&2
   exit 0

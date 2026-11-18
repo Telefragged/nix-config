@@ -1,8 +1,3 @@
-# Keeps ~/.config/home-manager/hosts/droptop/nvidia/driver.json in sync with the Arch driver.
-# Install with:
-#   sudo install -Dm644 hosts/droptop/nvidia/nvidia-nix-driver.hook \
-#     /etc/pacman.d/hooks/nvidia-nix-driver.hook
-
 [Trigger]
 Operation = Install
 Operation = Upgrade

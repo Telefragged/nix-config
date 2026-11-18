@@ -1,5 +1,3 @@
-# Neovim as the default editor, with plugins from ./plugins.nix and the
-# codelldb paths for nvim-dap defined ahead of ./init.lua.
 { pkgs, inputs, ... }:
 let
   vscode-lldb = pkgs.vscode-extensions.vadimcn.vscode-lldb;

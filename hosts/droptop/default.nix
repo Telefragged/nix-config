@@ -1,5 +1,3 @@
-# Configuration that only applies to droptop. Shared configuration lives in
-# ../../home.nix.
 { pkgs, lib, ... }:
 let
   # The Nvidia driver version must match the one the host kernel runs, so
