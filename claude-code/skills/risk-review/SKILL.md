@@ -30,6 +30,10 @@ In `.risk`, each `## <area>` heading enables that area, and the text under it
 is that area's repo notes. Text before the first heading is notes for every
 area. Report a heading that matches no area.
 
+The bold label of each item of an area file's **Check** list is a category of
+that area. Findings are counted by area and category over time, so do not
+rename a label.
+
 ## 3. Spawn one sub-agent per area
 
 Spawn them in one message. If a spawn is refused because of the limit on
@@ -44,7 +48,29 @@ Commits, oldest first: <hashes>
 Repo notes: <notes, or "none">
 ```
 
-## 4. Report
+## 4. Check each section
 
-When every sub-agent has returned, open `report.md` in this skill's base
+Write the section that a sub-agent returns to a file, and run:
+
+```sh
+python3 <skill base>/findings.py -q --area <area> <file>
+```
+
+If it prints errors, resume that sub-agent with SendMessage:
+
+```
+findings.py reported these errors in your section:
+<errors>
+Give each finding the category of the Check item that it matches, and
+correct the other errors. Drop a finding that matches no Check item. Return
+the whole section again.
+```
+
+Check the new section. If it still has errors, resume the sub-agent once
+more. After that, drop each finding that still has an error, and count it for
+the report.
+
+## 5. Report
+
+When every section passes the check, open `report.md` in this skill's base
 directory and follow it.

@@ -38,20 +38,26 @@ A finding has the level of the criterion that it matches.
 
 ## Findings
 
-- A finding is one location and one sentence: what is at that location and
-  why it matches the criterion. The location is a `path:line` at that commit.
+- A finding is one location, one sentence on what is at that location, and
+  a description of why it matches the criterion. The location is a
+  `path:line` at that commit.
+- A finding has one category: the bold label of the item in the area file's
+  **Check** list that the finding matches, in lower case with hyphens for
+  spaces, such as `worst-outcome` for **Worst outcome.** If a finding
+  matches several items, select the most specific one. A fact that matches
+  no item of the Check list is not a finding.
 - Report the commit, not the code that existed before it. An existing
   weakness counts only where the commit depends on it, such as an edit to a
   function that has no tests.
 - `medium` is not a default. A fact that matches no `medium` or `high`
   criterion of your area is not a finding. If you could not check a
-  criterion, report a finding at `unknown` whose message documents what is
-  missing.
+  criterion, report a finding at `unknown` whose description documents
+  what is missing.
 - If a fact matches criteria for two levels, give it the higher level.
 - Do not report a fact that you checked and found harmless. The reader of the
   report wants the places that need attention, and a sentence that confirms
   the absence of a problem costs them time.
-- `suggestion` is optional: the edit at that location that would remove the
+- A suggestion is optional: the edit at that location that would remove the
   finding or lower its level. If it is a different implementation, include
   its cost: what it adds, defers or makes harder to maintain. Omit a
   suggestion that special-cases a symptom, because it moves the risk from
@@ -69,10 +75,28 @@ Return only this Markdown. Text outside it is discarded.
 ```markdown
 ## <area identifier>: <the highest level among the findings>
 
-- **<level>** `<abbreviated hash>` <path:line> <one sentence>
-  Suggestion: <one sentence>
+[<area identifier>:<category>] <one sentence>
+
+<description>
+
+Suggestion: <one sentence>
+
+Level: <level>
+Commit: <abbreviated hash>
+Location: <path:line>
 ```
 
-Sort the findings by level (`high`, `unknown`, `medium`), then by commit.
-Omit the `Suggestion` line for a finding without one. For `low` and `n/a`,
-return only the heading.
+Repeat the block from `[<area identifier>:<category>]` for each finding. Its
+last paragraph contains only the three trailers. Omit the `Suggestion`
+paragraph for a finding without one.
+
+The order of the levels from highest is `high`, `unknown`, `medium`. Sort the
+findings by level, then by commit. For `low` and `n/a`, return only the
+heading.
+
+Before you return, write the section to a file outside the repository, run
+this command, and correct each error that it prints:
+
+```sh
+python3 <the directory of this file>/findings.py -q --area <area> <file>
+```

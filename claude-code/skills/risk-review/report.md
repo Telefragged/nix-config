@@ -20,3 +20,9 @@ The table has one row per area with findings, sorted by area identifier.
 Omit the table or a line that has no entries.
 
 A sub-agent that failed gets a table row at `unknown` with no count.
+
+Before you print the report, write it to a file and run
+`python3 <skill base>/findings.py -q <file>`. It must print no errors.
+
+If step 4 dropped findings, add a line after the `n/a` line:
+`dropped: <area> <count>, ...`.
