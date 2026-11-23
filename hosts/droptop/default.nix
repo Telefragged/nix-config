@@ -13,6 +13,20 @@ in
     inherit (nvidia-driver) version sha256;
   };
 
+  # Home Manager rejects `extensions` for Google Chrome on Linux, so the Claude
+  # extension is placed in the external-extensions directory next to the chrome
+  # binary, which Chrome scans at startup and installs from the Web Store.
+  programs.google-chrome = {
+    enable = true;
+    package = pkgs.google-chrome.overrideAttrs (old: {
+      postInstall = (old.postInstall or "") + ''
+        mkdir -p $out/share/google/chrome/extensions
+        echo '{ "external_update_url": "https://clients2.google.com/service/update2/crx" }' \
+          > $out/share/google/chrome/extensions/fcoeoabgfenejglbffodgkkbkcdhcgfn.json
+      '';
+    });
+  };
+
   services.ollama = {
     enable = true;
 
