@@ -17,7 +17,7 @@ At the end of a turn, report only what the user cannot predict: a link to open, 
 
 ## No anthropomorphizing
 
-Nothing in nit is a person: no code, program, file, skill, prompt, rule, doc, commit, build, crate, value, flag or path. Never give one of them a verb of speech, thought or intent. The reader then has to guess which technical act the verb stands for, and every guess costs attention. Use the exact software term:
+Code, program, file, skill, prompt, rule, doc, commit, build, crate, value, flag or paths are not a person. Never give one of them a verb of speech, thought or intent. The reader then has to guess which technical act the verb stands for, and every guess costs attention. Use the exact software term:
 
 | Do not write | Write the exact term |
 | --- | --- |
@@ -41,3 +41,17 @@ grep -nwiE 'asks?|asked|says?|said|tells?|told|names?|named|reads?|knows?|wants?
 
 For each hit, either the subject of the verb is a person, or you rewrite the sentence with a term from the table. Then commit with `git commit -F <file>`, or send with `nit comment -F <file>`.
 
+## No history narration
+
+When making code changes, leaving traces of review and change history in comments or documentation only leads to confusion when someone else reads the code later.
+
+| Do not write | Write instead |
+| --- | --- |
+| "Documents belong to no repo", "No table stores the runs", "There is no JSON route", "X never refers to Y" | nothing; delete the sentence. State only what exists |
+| now, no longer, previously, new, instead of, used to | the present state, with no reference to an earlier one |
+| a sentence that explains a removed feature | nothing; remove its text and add none in its place |
+| "The reviewer edits a document", "A change has revisions", "An agent cannot use X" | the plural: "Reviewers edit documents", "Changes have revisions", "Agents cannot use X" |
+| a commit body that describes the code, the design or the tests | one short paragraph of motivation: what was wrong or missing for the people who use it; an empty body when there is none |
+| a commit subject with a coined verb: deliver, surface, power, introduce | an imperative edit with the identifier or the file: add, remove, rename, replace, move, post |
+| a label that repeats what the state of a control shows ("The author has this version" beside a disabled Send button) | nothing; delete the label |
+| a paragraph, a section or a list item that the task did not request | nothing |
