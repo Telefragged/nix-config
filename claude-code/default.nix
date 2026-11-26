@@ -107,9 +107,12 @@ in
       manifest = lib.importJSON ./manifest.zst.json;
     };
     mutableSettings = true;
-    # herdr does not advertise hyperlink support, so Claude Code prints links
-    # as plain text inside herdr panes.
-    settings.env.FORCE_HYPERLINK = "1";
+    settings.env = {
+      # herdr does not advertise hyperlink support, so Claude Code prints links
+      # as plain text inside herdr panes.
+      FORCE_HYPERLINK = "1";
+      CLAUDE_CODE_DISABLE_BG_SHELL_PRESSURE_REAP = "1";
+    };
     context = ./context.md;
     skills = lib.mapAttrs (name: _: ./skills/${name}) skillDirs;
     agents = lib.mapAttrs' (
